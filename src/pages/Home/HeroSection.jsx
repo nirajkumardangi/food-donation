@@ -1,5 +1,7 @@
-import React from "react";
+
 import "./HeroSection.css";
+import HeroPageSlider from "./HeroPageSlider";
+
 
 const HeroSection = () => {
   return (
@@ -16,7 +18,7 @@ const HeroSection = () => {
       </div>
       <div className="hero-image">
         <div className="hero-image-circle">
-          <img src="hero-section-image.jpg" alt="Donation" />
+          <HeroPageSlider />
         </div>
       </div>
     </section>
