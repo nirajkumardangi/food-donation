@@ -1,8 +1,10 @@
 .info-section {
+  color: #ffffff;
   display: flex;
   justify-content: space-around;
   padding: 50px 20px;
-  background: #fff;
+  background: linear-gradient(to right, #2b1d0e, #4a3421);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .info-item {
@@ -17,8 +19,4 @@
 
 .info-item h3 {
   margin-bottom: 10px;
-}
-
-.info-item p {
-  color: #555;
 }

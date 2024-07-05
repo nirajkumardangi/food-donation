@@ -1,9 +1,18 @@
 // Header.js
 import { NavLink } from "react-router-dom";
 import "./Header.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faPhoneAlt, faClock } from '@fortawesome/free-solid-svg-icons';
-import { faFacebook, faTwitter, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMapMarkerAlt,
+  faPhoneAlt,
+  faClock,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebook,
+  faTwitter,
+  faInstagram,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
 
 const Header = () => {
   return (
@@ -37,7 +46,11 @@ const Header = () => {
         </div>
       </div>
       <nav className="nav">
-        <div className="logo">Donate Food</div>
+        <div className="logo">
+          <a href="#">
+            <img src="logo.png" alt="logo" />
+          </a>
+        </div>
         <ul className="nav-links">
           <li>
             <NavLink
