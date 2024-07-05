@@ -5,7 +5,7 @@ function HomeRoot() {
     <>
        <Header/>
        <Outlet/>
-
+       
     </>
   )
 }
