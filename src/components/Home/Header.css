@@ -37,7 +37,7 @@
   margin: 0 5px;
 }
 
-.social-icon:hover{
+.social-icon:hover {
   background-color: #c5c2c2;
 }
 
@@ -89,7 +89,7 @@
   font-weight: 420;
 }
 
-.nav-links a:hover {
+.nav-links a:hover ,.isActive{
   color: #28a745;
   border-bottom: 2px solid #28a745;
   padding-bottom: 5px;
@@ -105,9 +105,11 @@
   text-decoration: none;
 }
 
-.nav-buttons .btn:hover {
+.nav-buttons .btn:hover{
   background-color: #208438;
 }
+
+
 
 .nav-buttons .btn.volunteer {
   background-color: #007bff;
