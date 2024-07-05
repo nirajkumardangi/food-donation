@@ -1,18 +1,14 @@
-import Footer from '../components/Home/Footer'
-import Header from "../components/Home/Header";
+import Footer from "../components/Home/Footer";
+
 import InfoSection from "../components/Home/InfoSection";
 import HeroSection from "../components/Home/HeroSection";
 
-
-
-export default function Home(){
-    return (
-      <>
-       
-        <Header/>
-       <HeroSection/>
-        <InfoSection/>
-     <Footer/>
-      </>
-    );
+export default function RootHome() {
+  return (
+    <>
+      <HeroSection />
+      <InfoSection />
+      <Footer />
+    </>
+  );
 }
