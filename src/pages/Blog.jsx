@@ -1,4 +1,4 @@
-const BlogPage = () => {
+const Blog = () => {
   return (
     <div className="page">
       <div className="blog-post event">
@@ -81,4 +81,4 @@ const BlogPage = () => {
   );
 };
 
-export default BlogPage;
+export default Blog;
