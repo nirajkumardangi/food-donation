@@ -8,6 +8,9 @@ import Contact from "./pages/Contact";
 import Events from "./pages/Events";
 import Blog from "./pages/Blog";
 import Donation from "./pages/Donation";
+import { QueryClientProvider} from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
+// import queryClient, { queryClient } from './utility/Storage'
 
 import "./App.css";
 
@@ -32,6 +35,14 @@ const router = createBrowserRouter([
   },
 ]);
 
+ const queryClient = new QueryClient();
+
 export default function App() {
-  return <RouterProvider router={router} />;
+
+ 
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />;
+    </QueryClientProvider>
+  ); 
 }

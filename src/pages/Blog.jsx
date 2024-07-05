@@ -1,3 +1,6 @@
+
+
+
 const Blog = () => {
   return (
     <div className="page">
@@ -80,5 +83,6 @@ const Blog = () => {
     </div>
   );
 };
+
 
 export default Blog;
