@@ -27,7 +27,7 @@
 }
 
 .hero-content h1 {
-  font-size: 2.5em;
+  font-size: 3rem;
   margin-bottom: 20px;
 }
 
@@ -39,14 +39,15 @@
 .hero-content .btn {
   padding: 10px 20px;
   color: white;
-  background-color: #28a745;
+  background-color: #cc3300;
   border: none;
   border-radius: 5px;
   text-decoration: none;
 }
 
 .hero-content .btn:hover {
-  background-color: #208438;
+  background-color: #e63900;
+  transition: all .2s ease-in-out;
 }
 
 .hero-image {

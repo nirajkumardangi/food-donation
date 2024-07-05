@@ -1,6 +1,6 @@
 .header {
-  background: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
+  background: linear-gradient(to bottom right, #000000, #3b1d0b);
+  border-bottom: 1px solid #a89595;
   padding: 10px 20px;
 }
 
@@ -10,7 +10,7 @@
   align-items: center;
   padding: 0 0 10px 0;
   margin-bottom: 10px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #a89595;
 }
 
 .social-media {
@@ -21,7 +21,6 @@
 
 .social-media a {
   margin: 0 5px;
-  color: #333;
   text-decoration: none;
   font-size: 0.7rem;
 }
@@ -32,22 +31,23 @@
   justify-content: center;
   width: 1.5rem;
   height: 1.5rem;
-  background-color: #dfdcdc;
   border-radius: 50%;
   margin: 0 5px;
 }
 
 .social-icon:hover {
-  background-color: #c5c2c2;
+  background-color: #ffb84d;
+  color: #fff;
+  transition: all .2s ease-in-out;
 }
 
 .contact-info span {
   margin: 0 5px;
-  color: #555;
   font-size: 0.75rem;
   font-weight: 500;
   border-right: 2px solid #ccc;
   padding-right: 10px;
+  color: #f5f5f5;
 }
 
 .contact-info span:last-child {
@@ -56,7 +56,7 @@
 }
 
 .contact-info span svg {
-  color: #28a745;
+  color: #ff9900;
   font-size: 0.7rem;
 }
 
@@ -69,8 +69,11 @@
 }
 
 .nav .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+  margin: -0.9rem 0;
+}
+
+.nav .logo img {
+  width: 11rem;
 }
 
 .nav-links {
@@ -84,37 +87,41 @@
 
 .nav-links a {
   text-decoration: none;
-  color: #333;
   font-size: 0.9rem;
   font-weight: 420;
 }
 
-.nav-links a:hover ,.isActive{
-  color: #28a745;
-  border-bottom: 2px solid #28a745;
+.nav-links a:hover,
+.isActive {
+  border-bottom: 2px solid #ffcc33;
   padding-bottom: 5px;
+  transition: all .2s ease-in-out;
+}
+
+.nav-buttons a {
+  text-decoration: none;
 }
 
 .nav-buttons .btn {
   margin: 0 5px;
   padding: 10px 20px;
-  color: white;
-  background-color: #28a745;
+  background-color: #ff9900;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
-  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.nav-buttons .btn:hover{
-  background-color: #208438;
+.nav-buttons .btn:hover {
+  background-color: #ffb84d;
 }
-
-
 
 .nav-buttons .btn.volunteer {
-  background-color: #007bff;
+  background-color: #cc3300;
+  color: #ffffff;
 }
 
 .nav-buttons .btn.volunteer:hover {
-  background-color: #0363ca;
+  background-color: #e63900;
 }
