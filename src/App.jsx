@@ -8,7 +8,7 @@ import Contact from "./pages/Contact";
 import Events from "./pages/Events";
 import Blog from "./pages/Blog";
 import Donation from "./pages/Donation";
-import { QueryClientProvider} from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { QueryClient } from "@tanstack/react-query";
 // import queryClient, { queryClient } from './utility/Storage'
 
@@ -30,19 +30,16 @@ const router = createBrowserRouter([
       { path: "/events", element: <Events /> },
       { path: "/blogs", element: <Blog /> },
       { path: "/donations", element: <Donation /> },
-     
     ],
   },
 ]);
 
- const queryClient = new QueryClient();
+const queryClient = new QueryClient();
 
 export default function App() {
-
- 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </QueryClientProvider>
-  ); 
+  );
 }
