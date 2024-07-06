@@ -10,7 +10,7 @@ import Blog from "./pages/Blog";
 import Donation from "./pages/Donation";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { FirebaseProvider } from "./utility/Storage";
-import  queryClient  from "./utility/Storage";
+import queryClient from "./utility/Storage";
 
 import "./App.css";
 
@@ -19,10 +19,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <HomeRoot />,
     children: [
-      {
-        index: true,
-        element: <Home />,
-      },
+      { index: true, element: <Home /> },
       { path: "auth", element: <AuthForm /> },
       { path: "/aboutUs", element: <AboutUs /> },
       { path: "/services", element: <Services /> },
@@ -40,7 +37,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <FirebaseProvider>
-        <RouterProvider router={router} />;
+        <RouterProvider router={router} />
       </FirebaseProvider>
     </QueryClientProvider>
   );
