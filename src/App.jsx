@@ -13,6 +13,7 @@ import { FirebaseProvider } from "./utility/Storage";
 import queryClient from "./utility/Storage";
 
 import "./App.css";
+import DonationForm from "./components/Donation/DonationForm";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { path: "/events", element: <Events /> },
       { path: "/blogs", element: <Blog /> },
       { path: "/donations", element: <Donation /> },
+      { path: "/donate-now", element: <DonationForm /> },
     ],
   },
 ]);

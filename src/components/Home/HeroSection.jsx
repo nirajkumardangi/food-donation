@@ -1,7 +1,9 @@
 import "./HeroSection.css";
 import HeroPageSlider from "./HeroPageSlider";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
+
   return (
     <section className="hero-section">
       <div className="hero-slider-container">
@@ -13,9 +15,9 @@ const HeroSection = () => {
           Help us fight hunger by donating food to those in need. Together, we
           can make a difference in the lives of many.
         </p>
-        <a href="#" className="btn donate-now">
+        <Link to="/donate-now" className="btn donate-now">
           Donate Now
-        </a>
+        </Link>
       </div>
     </section>
   );
