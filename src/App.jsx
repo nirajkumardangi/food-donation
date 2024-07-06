@@ -10,7 +10,7 @@ import Blog from "./pages/Blog";
 import Donation from "./pages/Donation";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { FirebaseProvider } from "./utility/Storage";
-import queryClient from "./utility/Storage";
+import  queryClient  from "./utility/Storage";
 
 import "./App.css";
 
