@@ -7,7 +7,7 @@ import { Form, useSearchParams, Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import ErrorBlock from "../Ui/ErrorBlock";
 import LoadingIndicator from "../Ui/LoadingIndicator";
-import { useState ,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useFirebase } from "../utility/Storage";
 import classes from "./AuthForm.module.css";
 
@@ -19,63 +19,53 @@ function AuthForm() {
   const isLogin = currentAuth.get("mode") === "login";
   const Firebase = useFirebase();
 
-
-  useEffect(() => {                    // function is responsible for navigate the user on home page 
-    if (Firebase.isLogin) {           //if user is login and  try to navigate  through  routeing path 
+  useEffect(() => {
+    if (Firebase.isLogin) {
       navigate("/");
     }
   }, [Firebase, navigate]);
- 
 
-
-
-
-  const { data, mutate, isError, error, isPending } = useMutation({    //  useIng tanStack to mange the fetch request
-                                                                        // for login and register request
+  const { data, mutate, isError, error, isPending } = useMutation({
     mutationFn: isLogin ? Firebase.Login : Firebase.registration,
     onSuccess: () => {
       setEmail("");
       setPassword("");
-      alert(isLogin ? "Login successful" : "register successful");
+      alert(isLogin ? "Login successful" : "Register successful");
       isLogin ? navigate("/") : navigate("/auth?mode=login");
     },
   });
 
-   const {                                                            // for login request via google
-     mutate: google_Mutate,
-     isError: google_isError,
-     error: google_error,
-   } = useMutation({
-     mutationKey: ["Login"],
-     mutationFn: Firebase.loginWithGoogle,
-     onSuccess: () => {
-       alert("you are successfully login with google");
-       navigate("/");
-     },
-   });
+  const {
+    mutate: googleMutate,
+    isError: googleIsError,
+    error: googleError,
+  } = useMutation({
+    mutationKey: ["Login"],
+    mutationFn: Firebase.loginWithGoogle,
+    onSuccess: () => {
+      alert("You are successfully logged in with Google");
+      navigate("/");
+    },
+  });
 
-
-
-  function handleSubmit(event) {                    // collecting data from input field
+  function handleSubmit(event) {
     event.preventDefault();
     const fd = new FormData(event.target);
     const data = Object.fromEntries(fd.entries());
-
-    mutate(data);                                  // calling request function for Login and register
+    mutate(data);
   }
 
-  function handle_Login_With_Google() {           // for login with google
-    google_Mutate();
+  function handleLoginWithGoogle() {
+    googleMutate();
   }
 
-  function handleEmailChange(event) {            //implementing two way binding 
+  function handleEmailChange(event) {
     setEmail(event.target.value);
   }
 
   function handlePasswordChange(event) {
     setPassword(event.target.value);
   }
-  
 
   return (
     <>
@@ -87,17 +77,19 @@ function AuthForm() {
             id="email"
             type="email"
             name="email"
+            placeholder="enter user email"
             required
             onChange={handleEmailChange}
             value={email}
           />
         </p>
         <p>
-          <label htmlFor="image">Password</label>
+          <label htmlFor="password">Password</label>
           <input
             id="password"
             type="password"
             name="password"
+            placeholder="password"
             required
             onChange={handlePasswordChange}
             value={password}
@@ -112,15 +104,15 @@ function AuthForm() {
             {isLogin ? "Create new user" : "Login"}
           </Link>
           <button type="submit">
-            {isPending ? <LoadingIndicator /> : "save"}
+            {isPending ? <LoadingIndicator /> : "Save"}
           </button>
-          <button type="button" onClick={handle_Login_With_Google}>
-            Signin with google
+          <button type="button" onClick={handleLoginWithGoogle}>
+            Sign in with Google
           </button>
         </div>
       </Form>
 
-      <div className="classes.errorCon">
+      <div className={classes.errorCon}>
         {isError ? (
           <ErrorBlock
             title={error.title}
@@ -128,11 +120,11 @@ function AuthForm() {
           />
         ) : null}
 
-        {google_isError ? (
+        {googleIsError ? (
           <ErrorBlock
-            title={google_error.title}
+            title={googleError.title}
             message={
-              google_error.message || "Failed to register, please try again."
+              googleError.message || "Failed to register, please try again."
             }
           />
         ) : null}
