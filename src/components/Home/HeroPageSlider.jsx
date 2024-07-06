@@ -1,5 +1,5 @@
 import classes from "./HeroPageSlider.module.css";
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 
 import HeroImage_1 from "../../assets/HeroImage_1.jpg";
 import HeroImage_2 from "../../assets/HeroImage_2.jpg";
