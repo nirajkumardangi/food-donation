@@ -9,8 +9,6 @@ import Events from "./pages/Events";
 import Blog from "./pages/Blog";
 import Donation from "./pages/Donation";
 import { QueryClientProvider } from "@tanstack/react-query";
-// import { QueryClient } from "@tanstack/react-query";
-import queryClient from "./utility/Storage";
 import { FirebaseProvider } from "./utility/Storage";
 
 import "./App.css";
