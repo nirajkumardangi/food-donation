@@ -14,7 +14,35 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 
+import { useMutation } from "@tanstack/react-query";
+import LoadingIndicator from "../../Ui/LoadingIndicator";
+import { useFirebase } from "../../utility/Storage";
+import { useNavigate } from "react-router-dom";
+
+
 const Header = () => {
+  const Firebase = useFirebase();
+
+
+  const navigate=useNavigate()
+
+  const { mutate, isPending } = useMutation({
+    
+    mutationFn: Firebase.signOutFunction,
+    onSuccess: () => {
+      alert("LogOut successful");
+      
+    },
+  });
+
+  function handleLogout() {
+    mutate();
+  
+    navigate('./')
+  }
+
+ 
+
   return (
     <header className="header">
       <div className="header-top">
@@ -114,9 +142,16 @@ const Header = () => {
           <NavLink to="#" className="btn volunteer">
             Become a Volunteer
           </NavLink>
-          <NavLink to="/auth?mode=login" className="btn donate">
-            Login
-          </NavLink>
+
+          {Firebase.isLogin ? (
+            <NavLink className="btn donate" onClick={handleLogout}>
+              {isPending ? 'Loading...' : "Logout"}
+            </NavLink>
+          ) : (
+            <NavLink to="/auth?mode=login" className="btn donate">
+              Login
+            </NavLink>
+          )}
         </div>
       </nav>
     </header>
