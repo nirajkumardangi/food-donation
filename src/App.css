@@ -6,11 +6,8 @@
   box-sizing: border-box;
 }
 
-#root{
-  height: 100vh;
-}
-
 html {
+  min-height: 100vh;
   background: linear-gradient(to bottom right, #000000, #3b1d0b);
   font-family: "Poppins", sans-serif;
   line-height: 1.5;
