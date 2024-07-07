@@ -1,6 +1,10 @@
+import { Link, Outlet } from "react-router-dom";
+
 const DonationsPage = () => {
-  return (
+  return ( 
     <div className="page">
+
+
       <div className="section event">
         <h2>Donate Food</h2>
         <p>
@@ -9,9 +13,9 @@ const DonationsPage = () => {
           donating surplus produce from your garden or non-perishable items from
           your pantry, every donation counts.
         </p>
-        <a href="#" className="btn donate-food">
+        <Link to="/DonateForm" className="btn donate-food">
           Donate Food
-        </a>
+        </Link>
       </div>
 
       <div className="section event">
@@ -21,9 +25,9 @@ const DonationsPage = () => {
           distribution centers, and expand our outreach efforts. Your financial
           support ensures that we can continue our mission to fight hunger.
         </p>
-        <a href="#" className="btn donate-money">
+        <Link to="/DonateForm" className="btn donate-food">
           Donate Money
-        </a>
+        </Link>
       </div>
 
       <div className="section event">

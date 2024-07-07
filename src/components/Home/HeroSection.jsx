@@ -15,7 +15,7 @@ const HeroSection = () => {
           Help us fight hunger by donating food to those in need. Together, we
           can make a difference in the lives of many.
         </p>
-        <Link to="/donate-now" className="btn donate-now">
+        <Link to="/DonateForm" className="btn donate-now">
           Donate Now
         </Link>
       </div>
