@@ -1,7 +1,5 @@
-
-
 form#food-listing-form {
-  max-width: 600px; /* Limit form width on desktop */
+  max-width: 600px;
   margin: 20px auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -27,49 +25,43 @@ textarea {
 }
 
 textarea {
-  resize: vertical; /* Allow textarea resizing */
+  resize: vertical;
 }
 
-
-button[type="submit"] {
-  background-color: #4caf50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 15px;
-  display: block;
-  width: 100%; /* Make submit button full width */
-}
-
-button[type="submit"]:hover {
-  background-color: #3e8e41;
-}
-
-/* Responsive Styles (Media Queries) */
 .form-group label {
-  display: block; /* Ensure label spans full width */
+  display: block;
   margin-bottom: 5px;
 }
 
-.form-group div{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
 
-.p{
+.delivery-options {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: medium;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
+.delivery-options p {
+  display: flex;
+  gap: 1rem;
+}
 
+.delivery-options label {
+  font-size: 1rem;
+}
+
+.delivery-options input {
+  width: 1rem;
+}
 
 @media (max-width: 768px) {
   form#food-listing-form {
-    width: 90%; /* Adjust form width for smaller screens */
+    width: 90%;
+    /* Adjust form width for smaller screens */
   }
 }

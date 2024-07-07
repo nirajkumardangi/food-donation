@@ -1,5 +1,5 @@
 import { useState } from "react";
-import './DonationForm.css'
+import "./DonationForm.css";
 import { Form } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useFirebase } from "../../utility/Storage";
@@ -10,10 +10,9 @@ const FoodListingForm = () => {
   const [expirationDate, setExpirationDate] = useState("");
   const [location, setLocation] = useState("");
   const [number, setNumber] = useState("");
-  const [description, setDescription] = useState("");
   const [delivery, setDelivery] = useState("pickup"); // Default delivery option
   const [diet, setDiet] = useState([]); // Array to store selected diets
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState("");
   const [name, setName] = useState(null);
 
   const firebase = useFirebase();
@@ -35,10 +34,6 @@ const FoodListingForm = () => {
         break;
       case "number":
         setNumber(value);
-        break;
-     
-      case "description":
-        setDescription(value);
         break;
       case "name":
         setName(value);
@@ -66,26 +61,28 @@ const FoodListingForm = () => {
     location,
     name,
     number,
-    description,
     delivery,
     diet,
     image,
   };
 
-  
   const { mutate } = useMutation({
     mutationFn: firebase.handleNewMealsListing,
   });
-  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-     mutate(FormData)
-      console.log("Form submitted:", FormData);
+    mutate(FormData);
+    console.log("Form submitted:", FormData);
   };
 
   return (
-    <Form id="food-listing-form" onSubmit={handleSubmit} method="post">
+    <Form
+      id="food-listing-form"
+      className="event"
+      onSubmit={handleSubmit}
+      method="post"
+    >
       <h2>Create Food Listing</h2>
       <div className="form-group">
         <div className="form-group">
@@ -139,8 +136,7 @@ const FoodListingForm = () => {
           type="file"
           id="image-upload"
           name="image-upload"
-       
-          onChange={(e)=>setImage(e.target.files[0])}
+          onChange={(e) => setImage(e.target.files[0])}
           required
         />
       </div>
@@ -169,20 +165,9 @@ const FoodListingForm = () => {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="description">Description:</label>
-        <textarea
-          id="description"
-          name="description"
-          rows="4"
-          value={description}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-      <div className="form-group">
         <label>Delivery Option:</label>
-        <div>
-          <p className="p">
+        <div className="delivery-options">
+          <p>
             <label htmlFor="pickup">Pickup Only</label>
             <input
               type="radio"
@@ -194,8 +179,8 @@ const FoodListingForm = () => {
             />
           </p>
 
-          <p className="p">
-            <label htmlFor="delivery">self delivery</label>
+          <p>
+            <label htmlFor="delivery">Self delivery</label>
             <input
               type="radio"
               id="delivery"
@@ -209,7 +194,13 @@ const FoodListingForm = () => {
       </div>
 
       <div>
-        <button type="submit">submit</button>
+        <button
+          type="submit"
+          className="btn"
+          style={{ width: "100%", margin: "0rem" }}
+        >
+          submit
+        </button>
       </div>
     </Form>
   );
