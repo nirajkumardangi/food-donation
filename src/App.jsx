@@ -5,8 +5,6 @@ import AuthForm from "./pages/AuthForm";
 import AboutUs from "./pages/AboutUs";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
-import Events from "./pages/Events";
-import Blog from "./pages/Blog";
 import Donation from "./pages/Donation";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { FirebaseProvider } from "./utility/Storage";
@@ -26,8 +24,6 @@ const router = createBrowserRouter([
       { path: "aboutUs", element: <AboutUs /> },
       { path: "services", element: <Services /> },
       { path: "contact", element: <Contact /> },
-      { path: "events", element: <Events /> },
-      { path: "blogs", element: <Blog /> },
       {
         path: "donations",
         element: <Donation />,
