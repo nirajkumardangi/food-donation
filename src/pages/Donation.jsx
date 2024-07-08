@@ -1,11 +1,13 @@
 import DonationForm from "../components/Donation/DonationForm";
+import GoBackIcon from "../Ui/GoBackIcon";
+import { Outlet } from "react-router-dom";
 
-const Donation = () => {
-  return (
-    <div className="page">
-      <DonationForm />
-    </div>
-  );
+
+const DonationsPage = () => {
+  return <div className="bg-gray-200">
+  <GoBackIcon/>
+  <Outlet/>
+  </div>
 };
 
-export default Donation;
+export default DonationsPage;

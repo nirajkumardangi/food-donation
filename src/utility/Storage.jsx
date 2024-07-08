@@ -16,8 +16,8 @@ import { QueryClient } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
 export const firebaseAuth = getAuth(fireBase);
 export const useFirebase = () => useContext(firebaseContext);
-import { getFirestore, collection, addDoc ,getDocs} from "firebase/firestore";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const queryClient = new QueryClient();
 export default queryClient;
@@ -97,50 +97,61 @@ export const FirebaseProvider = (props) => {
       throw error;
     }
   }
- 
+
 
 
   async function handleNewMealsListing(data) {
 
-   try {
-     const {
-       foodName,
-       quantity,
-       expirationDate,
-       location,
-       name,
-       number,
-       description,
-       image,
-     } = data;
-     const ImageRef = ref(
-       fireStorage,
-       `upload/images/${Date.now()}-${image.name}`
-     );
-     const mealsImage_path = await uploadBytes(ImageRef, image);
+    try {
+      const {
+        foodName,
+        quantity,
+        expirationDate,
+        location,
+        name,
+        number,
+       
+        image,
+      } = data;
 
-     const allData = await addDoc(collection(fireStore, "Meals"), {
-       foodName,
-       quantity,
-       expirationDate,
-       location,
-       displayName: user.displayName ? user.displayName : name,
-       number,
-       description,
-       imageURL: mealsImage_path.ref.fullPath,
-       userEmail: user.email,
-       photoURL: user.photoURL,
-       userId: user.uid,
-     });
+     console.log('all data arrive here');
 
-     return allData;
-   } catch (error) {
-     error.title = "Google Sign In Unsuccessful";
-     throw error;
-   }
+      const ImageRef = ref(
+        fireStorage,
+        `upload/images/${Date.now()}-${image.name}`
+      );
+      const mealsImage_path = await uploadBytes(ImageRef, image);
+
+      console.log('image was uploaded')
+
+      const allData = await addDoc(collection(fireStore, "Meals"), {
+        foodName,
+        quantity,
+        expirationDate,
+        location,
+        displayName: user.displayName ? user.displayName : name,
+        number,
+        imageURL: mealsImage_path.ref.fullPath,
+        userEmail: user.email,
+        photoURL: user.photoURL,
+        userId: user.uid,
+      });
+
+      if(allData){
+        console.log(allData)
+      }
+
+      return allData;
+    } catch (error) {
+     console.log('error occurred');
+      error.title = "add meals unsuccessful please try again";
+      throw error;
+    }
   }
 
-  async function getAllDonatedMeals(){
+
+
+  async function getAllDonatedMeals() {
 
     try {
       const response = await getDocs(collection(fireStore, "Meals"));
@@ -149,8 +160,21 @@ export const FirebaseProvider = (props) => {
       error.title = "unable to fetch the Meals";
       throw error;
     }
-     
-   
+
+
+  }
+
+  async function getImageURL(path) {
+
+    try {
+      const response = await getDownloadURL(ref(fireStorage, path))
+      return response;
+    } catch (error) {
+      error.title = "unable to fetch the Meals";
+      throw error;
+    }
+
+
   }
 
   return (
@@ -163,6 +187,7 @@ export const FirebaseProvider = (props) => {
         signOutFunction,
         handleNewMealsListing,
         getAllDonatedMeals,
+        getImageURL
       }}
     >
       {props.children}

@@ -5,12 +5,12 @@ import AuthForm from "./pages/AuthForm";
 import AboutUs from "./pages/AboutUs";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
-import Donation from "./pages/Donation";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { FirebaseProvider } from "./utility/Storage";
 import queryClient from "./utility/Storage";
-import FoodListingForm from "./components/Donation/DonationForm";
+import DonatedMealsList from './components/Donation/DonatedMealsList'
 import DonationForm from "./components/Donation/DonationForm";
+import DonationsPage from './pages/Donation'
 
 const router = createBrowserRouter([
   {
@@ -23,11 +23,12 @@ const router = createBrowserRouter([
       { path: "services", element: <Services /> },
       { path: "contact", element: <Contact /> },
       {
-        path: "donations",
-        element: <Donation />,
+        path: "donation", element: <DonationsPage />, children: [
+          { path: 'form', element: <DonationForm /> },
+        { path: 'meals', element: <DonatedMealsList /> },
+      ]
       },
-    
-      { path: "DonateForm", element: <DonationForm /> },
+
     ],
   },
 ]);
