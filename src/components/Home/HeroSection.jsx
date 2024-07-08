@@ -7,8 +7,8 @@ const HeroSection = () => {
       <HeroPageSlider />
 
       <div className="absolute inset-0 flex items-center justify-center text-center text-white z-10">
-        <div className="max-w-2xl mx-auto p-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        <div className="max-w-4xl mx-auto p-8">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 text-secondary-color ">
             Donate Food to the Poor
           </h1>
           <p className="text-lg mb-10 font-bold">
@@ -17,7 +17,7 @@ const HeroSection = () => {
           </p>
           <Link
             to="/DonateForm"
-            className="btn donate-now bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg text-lg"
+            className="bg-primary-color hover:bg-secondary-color px-6 py-3 rounded-lg text-lg font-light-bold transition-colors duration-500"
           >
             Donate Now
           </Link>

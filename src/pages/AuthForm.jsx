@@ -1,13 +1,11 @@
-/**
- * The `AuthForm` function in JavaScript React handles user authentication, including login,
- * registration, and Google login, using tanStack for managing fetch requests and routing the user
- * based on their authentication status.
- */
 import { Form, useSearchParams, Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import ErrorBlock from "../Ui/ErrorBlock";
 import LoadingIndicator from "../Ui/LoadingIndicator";
-import { useState, useEffect } from "react";
 import { useFirebase } from "../utility/Storage";
 
 function AuthForm() {
@@ -68,65 +66,99 @@ function AuthForm() {
 
   return (
     <>
-      <Form method="post" onSubmit={handleSubmit}>
-        <h1>{isLogin ? "Log in" : "Create a new user"}</h1>
-        <p>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            placeholder="enter user email"
-            required
-            onChange={handleEmailChange}
-            value={email}
-          />
-        </p>
-        <p>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            placeholder="password"
-            required
-            onChange={handlePasswordChange}
-            value={password}
-          />
-        </p>
-        <div>
-          <Link
-            type="button"
-            to={`?mode=${isLogin ? "signUp" : "login"}`}
-            disabled={isPending}
+      <Form
+        method="post"
+        onSubmit={handleSubmit}
+        className="max-w-md mx-5 md:mx-auto p-6 bg-gray-900 shadow-md rounded-lg mt-32"
+      >
+        <h1 className="text-2xl font-light-bold mb-4 text-primary-color">
+          {isLogin ? "Log in" : "Create a new user"}
+        </h1>
+        <div className="mb-4 relative">
+          <label htmlFor="email" className="block text-gray-100 mb-2">
+            Email
+          </label>
+          <div className="relative">
+            <FontAwesomeIcon
+              icon={faEnvelope}
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            />
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="Enter user email"
+              required
+              onChange={handleEmailChange}
+              value={email}
+              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md"
+            />
+          </div>
+        </div>
+        <div className="mb-4 relative">
+          <label htmlFor="password" className="block text-gray-100 mb-2">
+            Password
+          </label>
+          <div className="relative">
+            <FontAwesomeIcon
+              icon={faLock}
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            />
+            <input
+              id="password"
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+              onChange={handlePasswordChange}
+              value={password}
+              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col gap-4">
+          <div className="inline">
+            <Link
+              to={`?mode=${isLogin ? "signUp" : "login"}`}
+              disabled={isPending}
+              className="text-primary-color hover:underline"
+            >
+              {isLogin ? "Create new user" : "Login"}
+            </Link>
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-primary-color hover:bg-secondary-color text-white font-bold py-2 px-4 rounded flex items-center justify-center"
           >
-            {isLogin ? "Create new user" : "Login"}
-          </Link>
-          <button type="submit">
             {isPending ? <LoadingIndicator /> : "Save"}
           </button>
-          <button type="button" onClick={handleLoginWithGoogle}>
+          <button
+            type="button"
+            onClick={handleLoginWithGoogle}
+            className="w-full bg-primary-color hover:bg-secondary-color text-white font-bold py-2 px-4 rounded flex items-center justify-center"
+          >
+            <FontAwesomeIcon icon={faGoogle} className="mr-2" />
             Sign in with Google
           </button>
         </div>
       </Form>
 
-      <div>
-        {isError ? (
+      <div className="mt-6">
+        {isError && (
           <ErrorBlock
             title={error.title}
             message={error.message || "Failed to register, please try again."}
           />
-        ) : null}
+        )}
 
-        {googleIsError ? (
+        {googleIsError && (
           <ErrorBlock
             title={googleError.title}
             message={
               googleError.message || "Failed to register, please try again."
             }
           />
-        ) : null}
+        )}
       </div>
     </>
   );
