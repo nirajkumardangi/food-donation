@@ -1,8 +1,4 @@
-Here's the `README.md` file with all the given information:
-
----
-
-# Food Donation Platform
+# Food Donation
 
 ## Overview
 
@@ -81,7 +77,7 @@ my-food-donation-app/
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/nirajkumardangi/food-donation.git
-   cd food-donation-platform
+   cd food-donation
    ```
 
 2. **Install dependencies**:
