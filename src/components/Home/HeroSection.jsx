@@ -1,9 +1,7 @@
-import "./HeroSection.css";
 import HeroPageSlider from "./HeroPageSlider";
 import { Link } from "react-router-dom";
 
 const HeroSection = () => {
-
   return (
     <section className="hero-section">
       <div className="hero-slider-container">

@@ -3,7 +3,7 @@ function AboutUs() {
     <div className="page">
       <div className="section event">
         <h2>About Food Aid</h2>
-        <p>
+        <p className="underline">
           Food Aid is dedicated to fighting hunger and food insecurity by
           connecting donors with those in need. We believe that everyone
           deserves access to nutritious food, and through our platform, we aim

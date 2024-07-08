@@ -9,7 +9,6 @@ import ErrorBlock from "../Ui/ErrorBlock";
 import LoadingIndicator from "../Ui/LoadingIndicator";
 import { useState, useEffect } from "react";
 import { useFirebase } from "../utility/Storage";
-import classes from "./AuthForm.module.css";
 
 function AuthForm() {
   const [password, setPassword] = useState("");

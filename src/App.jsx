@@ -10,8 +10,6 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { FirebaseProvider } from "./utility/Storage";
 import queryClient from "./utility/Storage";
 import FoodListingForm from "./components/Donation/DonationForm";
-
-import "./App.css";
 import DonationForm from "./components/Donation/DonationForm";
 
 const router = createBrowserRouter([

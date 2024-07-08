@@ -1,13 +1,12 @@
-import { Outlet } from 'react-router-dom'
-import Header from '../components/Home/Header'
+import { Outlet } from "react-router-dom";
+import Header from "../components/Home/Header";
 function HomeRoot() {
   return (
     <>
-       <Header/>
-       <Outlet/>
-       
+      <Header />
+      <Outlet />
     </>
-  )
+  );
 }
 
-export default HomeRoot
+export default HomeRoot;

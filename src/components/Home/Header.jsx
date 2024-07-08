@@ -1,6 +1,5 @@
 // Header.js
 import { NavLink } from "react-router-dom";
-import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMapMarkerAlt,
@@ -19,29 +18,23 @@ import LoadingIndicator from "../../Ui/LoadingIndicator";
 import { useFirebase } from "../../utility/Storage";
 import { useNavigate } from "react-router-dom";
 
-
 const Header = () => {
   const Firebase = useFirebase();
 
-
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const { mutate, isPending } = useMutation({
-    
     mutationFn: Firebase.signOutFunction,
     onSuccess: () => {
       alert("LogOut successful");
-      
     },
   });
 
   function handleLogout() {
     mutate();
-  
-    navigate('./')
-  }
 
- 
+    navigate("./");
+  }
 
   return (
     <header className="header">
@@ -129,7 +122,7 @@ const Header = () => {
 
           {Firebase.isLogin ? (
             <NavLink className="btn donate" onClick={handleLogout}>
-              {isPending ? 'Loading...' : "Logout"}
+              {isPending ? "Loading..." : "Logout"}
             </NavLink>
           ) : (
             <NavLink to="/auth?mode=login" className="btn donate">

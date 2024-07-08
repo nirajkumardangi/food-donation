@@ -5,8 +5,6 @@ import {
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
-import "./InfoSection.css";
-
 const InfoSection = () => {
   return (
     <>
