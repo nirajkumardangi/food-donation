@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./DonationForm.css";
 import { Form } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useFirebase } from "../../utility/Storage";
@@ -10,8 +9,8 @@ const FoodListingForm = () => {
   const [expirationDate, setExpirationDate] = useState("");
   const [location, setLocation] = useState("");
   const [number, setNumber] = useState("");
-  const [delivery, setDelivery] = useState("pickup"); // Default delivery option
-  const [diet, setDiet] = useState([]); // Array to store selected diets
+  const [delivery, setDelivery] = useState("pickup");
+  const [diet, setDiet] = useState([]);
   const [image, setImage] = useState("");
   const [name, setName] = useState(null);
 
@@ -47,9 +46,9 @@ const FoodListingForm = () => {
 
     if (type === "checkbox") {
       if (checked) {
-        setDiet([...diet, value]); // Add selected diet to array
+        setDiet([...diet, value]);
       } else {
-        setDiet(diet.filter((item) => item !== value)); // Remove deselected diet
+        setDiet(diet.filter((item) => item !== value));
       }
     }
   };
@@ -77,15 +76,10 @@ const FoodListingForm = () => {
   };
 
   return (
-    <Form
-      id="food-listing-form"
-      className="event"
-      onSubmit={handleSubmit}
-      method="post"
-    >
+    <Form id="food-listing-form" onSubmit={handleSubmit} method="post">
       <h2>Create Food Listing</h2>
-      <div className="form-group">
-        <div className="form-group">
+      <div>
+        <div>
           <label htmlFor="quantity">Name:</label>
           <input
             type="text"
@@ -106,7 +100,7 @@ const FoodListingForm = () => {
           required
         />
       </div>
-      <div className="form-group">
+      <div>
         <label htmlFor="quantity">Quantity:</label>
         <input
           type="number"
@@ -118,7 +112,7 @@ const FoodListingForm = () => {
         />
       </div>
 
-      <div className="form-group">
+      <div>
         <label htmlFor="expiration-date">Expiration Date:</label>
         <input
           type="date"
@@ -130,7 +124,7 @@ const FoodListingForm = () => {
         />
       </div>
 
-      <div className="form-group">
+      <div>
         <label htmlFor="Image-upload">Upload Image:</label>
         <input
           type="file"
@@ -141,7 +135,7 @@ const FoodListingForm = () => {
         />
       </div>
 
-      <div className="form-group">
+      <div>
         <label htmlFor="location">Location:</label>
         <input
           type="text"
@@ -153,7 +147,7 @@ const FoodListingForm = () => {
         />
       </div>
 
-      <div className="form-group">
+      <div>
         <label htmlFor="contact-info">Mobile Number</label>
         <input
           type="number"
@@ -164,9 +158,9 @@ const FoodListingForm = () => {
           required
         />
       </div>
-      <div className="form-group">
+      <div>
         <label>Delivery Option:</label>
-        <div className="delivery-options">
+        <div>
           <p>
             <label htmlFor="pickup">Pickup Only</label>
             <input
@@ -194,11 +188,7 @@ const FoodListingForm = () => {
       </div>
 
       <div>
-        <button
-          type="submit"
-          className="btn"
-          style={{ width: "100%", margin: "0rem" }}
-        >
+        <button type="submit">
           submit
         </button>
       </div>

@@ -1,5 +1,4 @@
-import classes from "./HeroPageSlider.module.css";
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import HeroImage_1 from "../../assets/HeroImage_1.jpg";
 import HeroImage_2 from "../../assets/HeroImage_2.jpg";
@@ -31,7 +30,7 @@ function HeroPageSlider() {
   }, []);
 
   return (
-    <div className={classes.slideshow}>
+    <div>
       {images.map((val, index) => (
         <img
           key={val.image}
