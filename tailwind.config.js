@@ -1,10 +1,9 @@
+/* eslint-disable no-undef */
+
 module.exports = {
-  content: [
-    './public/index.html',
-    './src/**/*.{js,jsx}', // Adjust based on your actual file types and paths
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {},
   },
   plugins: [],
-}
+};

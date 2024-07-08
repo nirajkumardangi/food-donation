@@ -1,6 +1,6 @@
 import DonationForm from "../components/Donation/DonationForm";
 
-const DonationsPage = () => {
+const Donation = () => {
   return (
     <div className="page">
       <DonationForm />
@@ -8,4 +8,4 @@ const DonationsPage = () => {
   );
 };
 
-export default DonationsPage;
+export default Donation;

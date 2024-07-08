@@ -26,8 +26,8 @@ const router = createBrowserRouter([
         path: "donations",
         element: <Donation />,
       },
-      { path: "DonateForm", element: <FoodListingForm /> },
-      { path: "donate-now", element: <DonationForm /> },
+    
+      { path: "DonateForm", element: <DonationForm /> },
     ],
   },
 ]);

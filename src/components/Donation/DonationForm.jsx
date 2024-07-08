@@ -3,7 +3,7 @@ import { Form } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useFirebase } from "../../utility/Storage";
 
-const FoodListingForm = () => {
+const DonationForm = () => {
   const [foodName, setFoodName] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [expirationDate, setExpirationDate] = useState("");
@@ -196,4 +196,4 @@ const FoodListingForm = () => {
   );
 };
 
-export default FoodListingForm;
+export default DonationForm;
