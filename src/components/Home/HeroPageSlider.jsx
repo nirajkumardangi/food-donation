@@ -18,7 +18,7 @@ const images = [
   { image: HeroImage_7, alt: "Hero_image 7" },
 ];
 
-function HeroPageSlider() {
+const HeroPageSlider = () => {
   const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
@@ -30,18 +30,29 @@ function HeroPageSlider() {
   }, []);
 
   return (
-    <div>
+    <div className="relative h-screen overflow-hidden">
       {images.map((val, index) => (
-        <img
+        <div
           key={val.image}
-          src={val.image}
-          alt={val.alt}
-          className={currentImage === index ? "active" : ""}
-          style={{ display: currentImage === index ? "block" : "none" }}
-        />
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+            currentImage === index ? "opacity-100" : "opacity-0"
+          }`}
+          style={{ zIndex: images.length - index }}
+        >
+          <img
+            src={val.image}
+            alt={val.alt}
+            className="w-full h-full object-cover"
+          />
+          {/* Black overlay with opacity */}
+          <div
+            className="absolute inset-0 bg-black opacity-50"
+            aria-hidden="true"
+          ></div>
+        </div>
       ))}
     </div>
   );
-}
+};
 
 export default HeroPageSlider;
