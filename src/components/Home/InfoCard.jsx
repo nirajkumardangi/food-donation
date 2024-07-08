@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const InfoCard = ({ iconName, title, description }) => {
   return (
-    <div>
-      <div>
-        <h2>
-          <FontAwesomeIcon icon={iconName} />
-        </h2>
-        <h2>{title}</h2>
-        <p>{description}</p>
+    <div className="bg-cyan-900 rounded-lg shadow-md p-6">
+      <div className="text-center">
+        <FontAwesomeIcon icon={iconName} className="text-4xl text-blue-600" />
+      </div>
+      <div className="mt-4">
+        <h2 className="text-xl font-semibold text-center text-white">{title}</h2>
+        <p className="mt-2 ">{description}</p>
       </div>
     </div>
   );
