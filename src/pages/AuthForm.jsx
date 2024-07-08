@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import ErrorBlock from "../Ui/ErrorBlock";
+import ErrorPage from "../Ui/Error";
 import LoadingIndicator from "../Ui/LoadingIndicator";
 import { useFirebase } from "../utility/Storage";
 
@@ -91,7 +91,7 @@ function AuthForm() {
               required
               onChange={handleEmailChange}
               value={email}
-              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md"
+              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md "
             />
           </div>
         </div>
@@ -145,14 +145,14 @@ function AuthForm() {
 
       <div className="mt-6">
         {isError && (
-          <ErrorBlock
+          <ErrorPage
             title={error.title}
             message={error.message || "Failed to register, please try again."}
           />
         )}
 
         {googleIsError && (
-          <ErrorBlock
+          <ErrorPage
             title={googleError.title}
             message={
               googleError.message || "Failed to register, please try again."

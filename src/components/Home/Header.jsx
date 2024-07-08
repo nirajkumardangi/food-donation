@@ -3,7 +3,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-
+import Button from "../../Ui/Button";
 import { useMutation } from "@tanstack/react-query";
 import { useFirebase } from "../../utility/Storage";
 import { useNavigate } from "react-router-dom";
@@ -33,11 +33,12 @@ const Header = () => {
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <NavLink
-            to="/auth"
-            type="button"
+            to={!Firebase.isLogin && "/auth?mode=login"}
             className="text-white focus:ring-4 focus:outline-none bg-primary-color hover:bg-secondary-color font-light-bold rounded-lg text-sm px-4 py-2 text-center transition-colors duration-500"
+            onClick={Firebase.isLogin && handleLogout}
+
           >
-            Login
+            {Firebase.isLogin ? 'Logout' : 'Login'}
           </NavLink>
           <button
             type="button"
@@ -49,16 +50,18 @@ const Header = () => {
           </button>
         </div>
         <div
-          className={`${
-            isMenuOpen ? "block" : "hidden"
-          } items-center justify-between w-full md:flex md:w-auto md:order-1`}
+          className={`${isMenuOpen ? "block" : "hidden"
+            } items-center justify-between w-full md:flex md:w-auto md:order-1`}
         >
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-light-bold rounded-lg bg-gray-800 md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-gray-900">
             <li>
               <NavLink
                 to="/"
-                className="block py-2 px-3 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"
-                onClick={() => setIsMenuOpen(false)}
+                className={({ isActive }) =>
+                  isActive
+                    ? 'text-cyan-700'
+                    : "block py-2 px-3 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"}
+
               >
                 Home
               </NavLink>
@@ -66,8 +69,11 @@ const Header = () => {
             <li>
               <NavLink
                 to="/aboutUs"
-                className="block py-2 px-3 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"
-                onClick={() => setIsMenuOpen(false)}
+                className={({ isActive }) =>
+                  isActive
+                    ? 'text-cyan-700'
+                    : "block py-2 px-3 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"}
+
               >
                 About
               </NavLink>
@@ -75,29 +81,30 @@ const Header = () => {
             <li>
               <NavLink
                 to="/services"
-                className="block py-2 px-3 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"
-                onClick={() => setIsMenuOpen(false)}
+                className={({ isActive }) =>
+                  isActive
+                    ? 'text-cyan-700'
+                    : "block py-2 px-3 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"}
+
               >
                 Services
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/donations"
-                className="block py-2 px-3 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Donations
-              </NavLink>
-            </li>
+
             <li>
               <NavLink
                 to="/contact"
-                className="block py-2 px-3 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"
-                onClick={() => setIsMenuOpen(false)}
+                className={({ isActive }) =>
+                  isActive
+                    ? 'text-cyan-700'
+                    : "block py-2 px-3 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"}
+
               >
                 Contact
               </NavLink>
+            </li>
+            <li>
+              <Button content='Donation' />
             </li>
           </ul>
         </div>

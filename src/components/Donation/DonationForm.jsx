@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Form } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useFirebase } from "../../utility/Storage";
+import queryClient from "../../utility/Storage";
 
-const FoodListingForm = () => {
+const DonationForm = () => {
   const [foodName, setFoodName] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [expirationDate, setExpirationDate] = useState("");
@@ -65,24 +66,38 @@ const FoodListingForm = () => {
     image,
   };
 
-  const { mutate } = useMutation({
+  console.log(FormData);
+
+  const { mutate,isError ,error} = useMutation({
     mutationFn: firebase.handleNewMealsListing,
+
+    onSuccess: () => {
+      alert('meals added successful')
+      queryClient.invalidateQueries(['meals'])
+
+      redirect('./')
+    }
   });
 
   const handleSubmit = async (event) => {
+
+    console.log('form submitted');
     event.preventDefault();
     mutate(FormData);
-    console.log("Form submitted:", FormData);
   };
+
+  if(isError){
+  console.log(error.title,error.message);
+  }
 
   return (
     <Form
       id="food-listing-form"
       onSubmit={handleSubmit}
       method="post"
-      className="max-w-lg mx-auto p-6 bg-gray-900 shadow-md rounded-lg text-white mt-24"
+      className="max-w-lg mx-auto p-6 bg-gray-900 shadow-md rounded-lg mt-24 text-black "
     >
-      <h2 className="text-2xl font-light-bold mb-4">Create Food Listing</h2>
+      <h2 className="text-2xl font-light-bold mb-4 text-primary-color">Create Food Listing</h2>
       <div className="mb-4">
         <label htmlFor="name" className="block text-gray-100 mb-2">
           Name:
@@ -94,7 +109,8 @@ const FoodListingForm = () => {
           value={name}
           onChange={handleInputChange}
           required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md "
+
         />
       </div>
       <div className="mb-4">
@@ -163,7 +179,7 @@ const FoodListingForm = () => {
           value={location}
           onChange={handleInputChange}
           required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md "
         />
       </div>
       <div className="mb-4">
@@ -215,6 +231,7 @@ const FoodListingForm = () => {
         <button
           type="submit"
           className="w-full bg-primary-color hover:bg-secondary-color text-white font-bold py-2 px-4 rounded"
+
         >
           Submit
         </button>
@@ -223,4 +240,4 @@ const FoodListingForm = () => {
   );
 };
 
-export default FoodListingForm;
+export default DonationForm;

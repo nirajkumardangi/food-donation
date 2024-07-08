@@ -16,7 +16,7 @@ const HeroSection = () => {
             can make a difference in the lives of many.
           </p>
           <Link
-            to="/DonateForm"
+            to='/donation/form'
             className="bg-primary-color hover:bg-secondary-color px-6 py-3 rounded-lg text-lg font-light-bold transition-colors duration-500"
           >
             Donate Now
