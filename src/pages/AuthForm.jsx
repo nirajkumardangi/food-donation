@@ -68,7 +68,7 @@ function AuthForm() {
 
   return (
     <>
-      <Form method="post" className={classes.form} onSubmit={handleSubmit}>
+      <Form method="post" onSubmit={handleSubmit}>
         <h1>{isLogin ? "Log in" : "Create a new user"}</h1>
         <p>
           <label htmlFor="email">Email</label>
@@ -94,7 +94,7 @@ function AuthForm() {
             value={password}
           />
         </p>
-        <div className={classes.actions}>
+        <div>
           <Link
             type="button"
             to={`?mode=${isLogin ? "signUp" : "login"}`}
@@ -111,7 +111,7 @@ function AuthForm() {
         </div>
       </Form>
 
-      <div className={classes.errorCon}>
+      <div>
         {isError ? (
           <ErrorBlock
             title={error.title}
