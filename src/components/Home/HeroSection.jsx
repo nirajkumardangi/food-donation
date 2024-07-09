@@ -3,12 +3,12 @@ import HeroPageSlider from "./HeroPageSlider";
 
 const HeroSection = () => {
   return (
-    <section className="hero-section relative h-screen overflow-hidden">
+    <section className="hero-section relative h-screen overflow-hidden mt-18">
       <HeroPageSlider />
 
       <div className="absolute inset-0 flex items-center justify-center text-center text-white z-10">
         <div className="max-w-4xl mx-auto p-8">
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 text-secondary-color ">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 text-secondary-color">
             Donate Food to the Poor
           </h1>
           <p className="text-lg mb-10 font-bold">
