@@ -28,7 +28,7 @@ function AuthForm() {
       setEmail("");
       setPassword("");
       alert(isLogin ? "Login successful" : "Register successful");
-      isLogin ? navigate("/") : navigate("/auth?mode=login");
+      isLogin ? navigate("/dashboard") : navigate("/auth?mode=login");
     },
   });
 
@@ -41,7 +41,7 @@ function AuthForm() {
     mutationFn: Firebase.loginWithGoogle,
     onSuccess: () => {
       alert("You are successfully logged in with Google");
-      navigate("/");
+      navigate("/dashboard");
     },
   });
 
