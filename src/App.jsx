@@ -12,6 +12,7 @@ import queryClient from "./utility/Storage";
 import DonatedMealsList from "./components/Donation/DonatedMealsList";
 import DonationForm from "./components/Donation/DonationForm";
 import DonationsPage from "./pages/Donation";
+import Dashboard from './components/Dashboard/Dashboard'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: "services", element: <Services /> },
       { path: "contact", element: <Contact /> },
       { path: "developers", element: <Developers /> },
+      { path: 'dashboard', element: <Dashboard /> },
       {
         path: "donation",
         element: <DonationsPage />,

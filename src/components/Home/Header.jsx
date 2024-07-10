@@ -2,27 +2,11 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-import Button from "../../Ui/Button";
-import { useMutation } from "@tanstack/react-query";
 import { useFirebase } from "../../utility/Storage";
-import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const Firebase = useFirebase();
-  const navigate = useNavigate();
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: Firebase.signOutFunction,
-    onSuccess: () => {
-      alert("LogOut successful");
-    },
-  });
-
-  function handleLogout() {
-    mutate();
-    navigate("./");
-  }
 
   return (
     <nav className="bg-gray-900 fixed w-full z-20 top-0 border-b border-gray-700 mb-10">
@@ -34,10 +18,8 @@ const Header = () => {
           <NavLink
             to={!Firebase.isLogin && "/auth?mode=login"}
             className="text-white focus:ring-4 focus:outline-none bg-primary-color hover:bg-secondary-color font-light-bold rounded-lg text-sm px-4 py-2 text-center transition-colors duration-500"
-            onClick={Firebase.isLogin && handleLogout}
-
           >
-            {Firebase.isLogin ? 'Logout' : 'Login'}
+            {Firebase.isLogin ? "logout" : "Login"}
           </NavLink>
           <button
             type="button"
@@ -49,8 +31,9 @@ const Header = () => {
           </button>
         </div>
         <div
-          className={`${isMenuOpen ? "block" : "hidden"
-            } items-center justify-between w-full md:flex md:w-auto md:order-1`}
+          className={`${
+            isMenuOpen ? "block" : "hidden"
+          } items-center justify-between w-full md:flex md:w-auto md:order-1`}
         >
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-light-bold rounded-lg bg-gray-800 md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-gray-900">
             <li>
@@ -58,9 +41,9 @@ const Header = () => {
                 to="/"
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-primary-color'
-                    : "block py-2 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"}
-
+                    ? "text-primary-color"
+                    : "block py-2 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"
+                }
               >
                 Home
               </NavLink>
@@ -70,9 +53,9 @@ const Header = () => {
                 to="/aboutUs"
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-primary-color'
-                    : "block py-2 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"}
-
+                    ? "text-primary-color"
+                    : "block py-2 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"
+                }
               >
                 About
               </NavLink>
@@ -82,9 +65,9 @@ const Header = () => {
                 to="/services"
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-primary-color'
-                    : "block py-2 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"}
-
+                    ? "text-primary-color"
+                    : "block py-2 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"
+                }
               >
                 Services
               </NavLink>
@@ -95,9 +78,9 @@ const Header = () => {
                 to="/contact"
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-primary-color font-light-bold'
-                    : "block py-2 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"}
-
+                    ? "text-primary-color font-light-bold"
+                    : "block py-2 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"
+                }
               >
                 Contact
               </NavLink>
@@ -107,16 +90,14 @@ const Header = () => {
                 to="/developers"
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-primary-color font-light-bold'
-                    : "block py-2 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"}
-
+                    ? "text-primary-color font-light-bold"
+                    : "block py-2 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"
+                }
               >
                 Developers
               </NavLink>
             </li>
-            <li>
-              {/* <Button content='Donation' /> */}
-            </li>
+            <li>{/* <Button content='Donation' /> */}</li>
           </ul>
         </div>
       </div>
