@@ -3,6 +3,12 @@ import { Form, redirect } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useFirebase } from "../../utility/Storage";
 import queryClient from "../../utility/Storage";
+import Notification from "../../Ui/Notification";
+import ErrorPage from "../../Ui/Error";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@material-tailwind/react";
+import ButtonLoader from '../../Ui/ButtonLoader'
+
 
 const DonationForm = () => {
   const [foodName, setFoodName] = useState("");
@@ -14,10 +20,13 @@ const DonationForm = () => {
   const [diet, setDiet] = useState([]);
   const [image, setImage] = useState("");
   const [name, setName] = useState(null);
+  const navigation = useNavigate()
+
 
   const firebase = useFirebase();
 
   const handleInputChange = (event) => {
+
     const { name, value, type, checked } = event.target;
     switch (name) {
       case "food-name":
@@ -68,14 +77,13 @@ const DonationForm = () => {
 
   console.log(FormData);
 
-  const { mutate,isError ,error} = useMutation({
+  const { mutate, isError, error, isPending } = useMutation({
     mutationFn: firebase.handleNewMealsListing,
 
     onSuccess: () => {
-      alert('meals added successful')
+      <Notification title='meals donated successfully'/>
       queryClient.invalidateQueries(['meals'])
-
-      redirect('./')
+      navigation('/donation/meals')
     }
   });
 
@@ -86,8 +94,8 @@ const DonationForm = () => {
     mutate(FormData);
   };
 
-  if(isError){
-  console.log(error.title,error.message);
+  if (isError) {
+    <ErrorPage title={error.title} message={error.message}/>
   }
 
   return (
@@ -228,13 +236,27 @@ const DonationForm = () => {
         </div>
       </div>
       <div className="mt-6">
-        <button
+
+        {isPending ? <ButtonLoader content='submitting' /> : <Button
+
           type="submit"
           className="w-full bg-primary-color hover:bg-secondary-color text-white font-bold py-2 px-4 rounded"
+          disabled={isPending}
 
         >
           Submit
-        </button>
+        </Button> }
+        
+      </div>
+
+      <div className="mt-6">
+        {isError && (
+          <ErrorPage
+            title={error.title}
+            message={error.message || "Failed to register, please try again."}
+          />
+        )}
+
       </div>
     </Form>
   );
