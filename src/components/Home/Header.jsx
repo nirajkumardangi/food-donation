@@ -103,6 +103,18 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
+              <NavLink
+                to="/developers"
+                className={({ isActive }) =>
+                  isActive
+                    ? 'text-primary-color font-light-bold'
+                    : "block py-2 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:hover:text-primary-color transition-colors duration-500 md:p-0 md:dark:hover:bg-transparent"}
+
+              >
+                Developers
+              </NavLink>
+            </li>
+            <li>
               {/* <Button content='Donation' /> */}
             </li>
           </ul>

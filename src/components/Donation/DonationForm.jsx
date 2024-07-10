@@ -68,175 +68,176 @@ const DonationForm = () => {
 
   console.log(FormData);
 
-  const { mutate,isError ,error} = useMutation({
+  const { mutate, isError, error } = useMutation({
     mutationFn: firebase.handleNewMealsListing,
 
     onSuccess: () => {
-      alert('meals added successful')
-      queryClient.invalidateQueries(['meals'])
+      alert("meals added successful");
+      queryClient.invalidateQueries(["meals"]);
 
-      redirect('./')
-    }
+      redirect("./");
+    },
   });
 
   const handleSubmit = async (event) => {
-
-    console.log('form submitted');
+    console.log("form submitted");
     event.preventDefault();
     mutate(FormData);
   };
 
-  if(isError){
-  console.log(error.title,error.message);
+  if (isError) {
+    console.log(error.title, error.message);
   }
 
   return (
-    <Form
-      id="food-listing-form"
-      onSubmit={handleSubmit}
-      method="post"
-      className="max-w-lg mx-auto p-6 bg-gray-900 shadow-md rounded-lg mt-24 text-black "
-    >
-      <h2 className="text-2xl font-light-bold mb-4 text-primary-color">Create Food Listing</h2>
-      <div className="mb-4">
-        <label htmlFor="name" className="block text-gray-100 mb-2">
-          Name:
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={name}
-          onChange={handleInputChange}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md "
-
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="food-name" className="block text-gray-100 mb-2">
-          Food Item Name:
-        </label>
-        <input
-          type="text"
-          id="food-name"
-          name="food-name"
-          value={foodName}
-          onChange={handleInputChange}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="quantity" className="block text-gray-100 mb-2">
-          Quantity:
-        </label>
-        <input
-          type="number"
-          id="quantity"
-          name="quantity"
-          value={quantity}
-          onChange={handleInputChange}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="expiration-date" className="block text-gray-100 mb-2">
-          Expiration Date:
-        </label>
-        <input
-          type="date"
-          id="expiration-date"
-          name="expiration-date"
-          value={expirationDate}
-          onChange={handleInputChange}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="image-upload" className="block text-gray-100 mb-2">
-          Upload Image:
-        </label>
-        <input
-          type="file"
-          id="image-upload"
-          name="image-upload"
-          onChange={(e) => setImage(e.target.files[0])}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="location" className="block text-gray-100 mb-2">
-          Location:
-        </label>
-        <input
-          type="text"
-          id="location"
-          name="location"
-          value={location}
-          onChange={handleInputChange}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md "
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="number" className="block text-gray-100 mb-2">
-          Mobile Number:
-        </label>
-        <input
-          type="number"
-          id="number"
-          name="number"
-          value={number}
-          onChange={handleInputChange}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-100 mb-2">Delivery Option:</label>
-        <div className="flex items-center mb-2">
-          <input
-            type="radio"
-            id="pickup"
-            name="delivery"
-            value="pickup"
-            checked={delivery === "pickup"}
-            onChange={handleInputChange}
-            className="mr-2"
-          />
-          <label htmlFor="pickup" className="text-gray-100">
-            Pickup Only
+    <div className="md:pt-24 px-4 pb-10 sm:px-6 lg:px-8 pt-20">
+      <Form
+        id="food-listing-form"
+        onSubmit={handleSubmit}
+        method="post"
+        className="max-w-lg mx-auto p-6 bg-gray-900 shadow-md rounded-lg text-black "
+      >
+        <h2 className="text-2xl font-light-bold mb-4 text-primary-color">
+          Create Food Listing
+        </h2>
+        <div className="mb-4">
+          <label htmlFor="name" className="block text-gray-100 mb-2">
+            Name:
           </label>
-        </div>
-        <div className="flex items-center">
           <input
-            type="radio"
-            id="delivery"
-            name="delivery"
-            value="delivery"
-            checked={delivery === "delivery"}
+            type="text"
+            id="name"
+            name="name"
+            value={name}
             onChange={handleInputChange}
-            className="mr-2"
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md "
           />
-          <label htmlFor="delivery" className="text-gray-100">
-            Self Delivery
-          </label>
         </div>
-      </div>
-      <div className="mt-6">
-        <button
-          type="submit"
-          className="w-full bg-primary-color hover:bg-secondary-color text-white font-bold py-2 px-4 rounded"
-
-        >
-          Submit
-        </button>
-      </div>
-    </Form>
+        <div className="mb-4">
+          <label htmlFor="food-name" className="block text-gray-100 mb-2">
+            Food Item Name:
+          </label>
+          <input
+            type="text"
+            id="food-name"
+            name="food-name"
+            value={foodName}
+            onChange={handleInputChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="quantity" className="block text-gray-100 mb-2">
+            Quantity:
+          </label>
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            value={quantity}
+            onChange={handleInputChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="expiration-date" className="block text-gray-100 mb-2">
+            Expiration Date:
+          </label>
+          <input
+            type="date"
+            id="expiration-date"
+            name="expiration-date"
+            value={expirationDate}
+            onChange={handleInputChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="image-upload" className="block text-gray-100 mb-2">
+            Upload Image:
+          </label>
+          <input
+            type="file"
+            id="image-upload"
+            name="image-upload"
+            onChange={(e) => setImage(e.target.files[0])}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="location" className="block text-gray-100 mb-2">
+            Location:
+          </label>
+          <input
+            type="text"
+            id="location"
+            name="location"
+            value={location}
+            onChange={handleInputChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md "
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="number" className="block text-gray-100 mb-2">
+            Mobile Number:
+          </label>
+          <input
+            type="number"
+            id="number"
+            name="number"
+            value={number}
+            onChange={handleInputChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-100 mb-2">Delivery Option:</label>
+          <div className="flex items-center mb-2">
+            <input
+              type="radio"
+              id="pickup"
+              name="delivery"
+              value="pickup"
+              checked={delivery === "pickup"}
+              onChange={handleInputChange}
+              className="mr-2"
+            />
+            <label htmlFor="pickup" className="text-gray-100">
+              Pickup Only
+            </label>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="radio"
+              id="delivery"
+              name="delivery"
+              value="delivery"
+              checked={delivery === "delivery"}
+              onChange={handleInputChange}
+              className="mr-2"
+            />
+            <label htmlFor="delivery" className="text-gray-100">
+              Self Delivery
+            </label>
+          </div>
+        </div>
+        <div className="mt-6">
+          <button
+            type="submit"
+            className="w-full bg-primary-color hover:bg-secondary-color text-white font-bold py-2 px-4 rounded"
+          >
+            Submit
+          </button>
+        </div>
+      </Form>
+    </div>
   );
 };
 
