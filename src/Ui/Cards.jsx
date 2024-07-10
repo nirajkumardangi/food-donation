@@ -53,5 +53,4 @@ const FoodItemCard = ({
     </div>
   );
 };
-
 export default FoodItemCard;
