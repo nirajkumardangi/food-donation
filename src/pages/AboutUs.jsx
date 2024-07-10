@@ -4,7 +4,7 @@ function AboutUs() {
   
   return (
     <>
-    <ToastNotification content="Error" type="error"/>
+    <ToastNotification content="Login Successfully!" type="warning"/>
       <div className="md:pt-24 px-4 sm:px-6 lg:px-8 pt-24">
         <div className="mb-8 p-6 border rounded-lg bg-gray-900 text-white shadow-md hover:shadow-lg transition-shadow duration-300">
           <h2 className="text-3xl font-bold mb-4 text-primary-color">
