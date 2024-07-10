@@ -22,10 +22,16 @@ const ToastNotification = ({ type, content }) => {
   return (
     <div
       id="toast-success"
-      className="flex items-center justify-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-gray-900 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 fixed top-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-1000 ease-in-out"
+      className="flex items-center justify-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-gray-900 rounded-lg shadow dark:text-gray-100 dark:bg-gray-800 fixed top-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-1000 ease-in-out"
       role="alert"
     >
-      <div className="{`${inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200}`}">
+      <div
+        className={`inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 rounded-lg dark:text-green-200 ${
+          (type === "success" && "bg-green-800") ||
+          (type === "error" && "bg-red-800") ||
+          (type === "warning" && "bg-yellow-800")
+        }`}
+      >
         <FontAwesomeIcon
           icon={
             (type === "success" && faCheckCircle) ||
