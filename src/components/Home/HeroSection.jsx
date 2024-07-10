@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import HeroPageSlider from "./HeroPageSlider";
 
+
 const HeroSection = () => {
   return (
     <section className="hero-section relative h-screen overflow-hidden mt-18">
@@ -16,12 +17,14 @@ const HeroSection = () => {
             can make a difference in the lives of many.
           </p>
           <Link
-            to='/donation/form'
+            to='/auth'
             className="bg-primary-color hover:bg-secondary-color px-6 py-3 rounded-lg text-lg font-light-bold transition-colors duration-500"
           >
             Donate Now
           </Link>
+         
         </div>
+      
       </div>
     </section>
   );
