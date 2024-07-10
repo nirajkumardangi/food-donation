@@ -10,7 +10,9 @@ module.exports = {
       colors: {
         "primary-color": "#F74F22",
         "secondary-color": "#FFAC00",
-        "dark-gray": "#1A1A1A",
+       "dark-gray": "#1A1A1A",
+        customLoader: '#FFFF00', 
+        customButtonBg: '#FFA500', 
       },
 
       fontWeight: {

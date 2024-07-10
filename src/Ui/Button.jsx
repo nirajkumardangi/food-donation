@@ -43,8 +43,12 @@ export default function Button({ content }) {
               to="#"
               className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >
+<<<<<<< HEAD
+            Donate Cloths
+=======
               <FontAwesomeIcon icon={faTshirt} className="mr-2" />
               Donated Clothes
+>>>>>>> 134a46412cb11c7370b55b5d1235d4b47d911a8a
             </NavLink>
           </MenuItem>
           <form action="#" method="POST">
