@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { Form, redirect } from "react-router-dom";
+import { Form, redirect, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useFirebase } from "../../utility/Storage";
 import queryClient from "../../utility/Storage";
 import Notification from "../../Ui/Notification";
 import ErrorPage from "../../Ui/Error";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
-import ButtonLoader from '../../Ui/ButtonLoader'
-
+import ButtonLoader from '../../Ui/ButtonLoader';
 
 const DonationForm = () => {
   const [foodName, setFoodName] = useState("");
@@ -20,13 +18,11 @@ const DonationForm = () => {
   const [diet, setDiet] = useState([]);
   const [image, setImage] = useState("");
   const [name, setName] = useState(null);
-  const navigation = useNavigate()
-
+  const navigate = useNavigate();
 
   const firebase = useFirebase();
 
   const handleInputChange = (event) => {
-
     const { name, value, type, checked } = event.target;
     switch (name) {
       case "food-name":
@@ -63,7 +59,7 @@ const DonationForm = () => {
     }
   };
 
-  const FormData = {
+  const formData = {
     foodName,
     quantity,
     expirationDate,
@@ -75,42 +71,23 @@ const DonationForm = () => {
     image,
   };
 
-  console.log(FormData);
-
-<<<<<<< HEAD
   const { mutate, isError, error, isPending } = useMutation({
     mutationFn: firebase.handleNewMealsListing,
-
     onSuccess: () => {
-      <Notification title='meals donated successfully'/>
-      queryClient.invalidateQueries(['meals'])
-      navigation('/donation/meals')
-    }
-=======
-  const { mutate, isError, error } = useMutation({
-    mutationFn: firebase.handleNewMealsListing,
-
-    onSuccess: () => {
-      alert("meals added successful");
-      queryClient.invalidateQueries(["meals"]);
-
-      redirect("./");
+      <Notification title='meals donated successfully' />;
+      queryClient.invalidateQueries(['meals']);
+      navigate('/donation/meals');
     },
->>>>>>> 134a46412cb11c7370b55b5d1235d4b47d911a8a
   });
 
   const handleSubmit = async (event) => {
     console.log("form submitted");
     event.preventDefault();
-    mutate(FormData);
+    mutate(formData);
   };
 
   if (isError) {
-<<<<<<< HEAD
-    <ErrorPage title={error.title} message={error.message}/>
-=======
     console.log(error.title, error.message);
->>>>>>> 134a46412cb11c7370b55b5d1235d4b47d911a8a
   }
 
   return (
@@ -138,33 +115,6 @@ const DonationForm = () => {
             className="w-full px-3 py-2 border border-gray-300 rounded-md "
           />
         </div>
-<<<<<<< HEAD
-      </div>
-      <div className="mt-6">
-
-        {isPending ? <ButtonLoader content='submitting' /> : <Button
-
-          type="submit"
-          className="w-full bg-primary-color hover:bg-secondary-color text-white font-bold py-2 px-4 rounded"
-          disabled={isPending}
-
-        >
-          Submit
-        </Button> }
-        
-      </div>
-
-      <div className="mt-6">
-        {isError && (
-          <ErrorPage
-            title={error.title}
-            message={error.message || "Failed to register, please try again."}
-          />
-        )}
-
-      </div>
-    </Form>
-=======
         <div className="mb-4">
           <label htmlFor="food-name" className="block text-gray-100 mb-2">
             Food Item Name:
@@ -280,16 +230,28 @@ const DonationForm = () => {
           </div>
         </div>
         <div className="mt-6">
-          <button
-            type="submit"
-            className="w-full bg-primary-color hover:bg-secondary-color text-white font-bold py-2 px-4 rounded"
-          >
-            Submit
-          </button>
+          {isPending ? (
+            <ButtonLoader content='submitting' />
+          ) : (
+            <Button
+              type="submit"
+              className="w-full bg-primary-color hover:bg-secondary-color text-white font-bold py-2 px-4 rounded"
+              disabled={isPending}
+            >
+              Submit
+            </Button>
+          )}
+        </div>
+        <div className="mt-6">
+          {isError && (
+            <ErrorPage
+              title={error.title}
+              message={error.message || "Failed to register, please try again."}
+            />
+          )}
         </div>
       </Form>
     </div>
->>>>>>> 134a46412cb11c7370b55b5d1235d4b47d911a8a
   );
 };
 
