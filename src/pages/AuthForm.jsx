@@ -7,7 +7,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import ErrorPage from "../Ui/Error";
 import LoadingIndicator from "../Ui/LoadingIndicator";
 import { useFirebase } from "../utility/Storage";
-
+import ButtonLoader from "../Ui/Notification";
 function AuthForm() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -15,6 +15,7 @@ function AuthForm() {
   const navigate = useNavigate();
   const isLogin = currentAuth.get("mode") === "login";
   const Firebase = useFirebase();
+  
 
   useEffect(() => {
     if (Firebase.isLogin) {
@@ -130,7 +131,7 @@ function AuthForm() {
             type="submit"
             className="w-full bg-primary-color hover:bg-secondary-color text-white font-bold py-2 px-4 rounded flex items-center justify-center"
           >
-            {isPending ? <LoadingIndicator /> : "Save"}
+            {isPending ? <ButtonLoader content='please wait...' /> : "Save"}
           </button>
           <button
             type="button"
