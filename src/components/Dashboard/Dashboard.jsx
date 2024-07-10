@@ -1,12 +1,12 @@
-import React from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDonate, faHandsHelping, faHistory, faInfoCircle, faPhone, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { func } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useFirebase } from '../../utility/Storage';
 import { useMutation } from '@tanstack/react-query';
 import Loader from '../../Ui/Loader';
+import ButtonLoader from '../../Ui/Notification';
   
 
 const Dashboard = () => {
@@ -52,7 +52,7 @@ const Dashboard = () => {
         </Link>
         <Link  className="bg-gray-800 p-6 md:p-10 rounded-lg shadow-md flex flex-col items-center transform transition-all duration-300 hover:scale-105 hover:bg-primary-color" onClick={handleLogout}>
           <FontAwesomeIcon icon={faSignOutAlt} className="text-white text-4xl md:text-6xl mb-4" />
-          <h2 className="text-white text-lg md:text-xl font-semibold"> {isPending ? <Loader content={'wait...'}/> : 'Log Out'}</h2>
+          <h2 className="text-white text-lg md:text-xl font-semibold"> {isPending ? <ButtonLoader content={'wait...'}/> : 'Log Out'}</h2>
         </Link>
       </div>
     </div>
