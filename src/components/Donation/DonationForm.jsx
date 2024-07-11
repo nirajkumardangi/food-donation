@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, redirect, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useFirebase } from "../../utility/Storage";
@@ -6,13 +6,15 @@ import queryClient from "../../utility/Storage";
 import Notification from "../../Ui/Notification";
 import ErrorPage from "../../Ui/Error";
 import { Button } from "@material-tailwind/react";
-import ButtonLoader from '../../Ui/ButtonLoader';
+import ButtonLoader from "../../Ui/ButtonLoader";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 const DonationForm = () => {
   const [foodName, setFoodName] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [expirationDate, setExpirationDate] = useState("");
-  const [location, setLocation] = useState("");
   const [number, setNumber] = useState("");
   const [delivery, setDelivery] = useState("pickup");
   const [diet, setDiet] = useState([]);
@@ -21,6 +23,9 @@ const DonationForm = () => {
   const navigate = useNavigate();
 
   const firebase = useFirebase();
+
+  const [location, setLocation] = useState({ latitude: "", longitude: "" });
+  const [locationError, setLocationError] = useState("");
 
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -33,9 +38,6 @@ const DonationForm = () => {
         break;
       case "expiration-date":
         setExpirationDate(value);
-        break;
-      case "location":
-        setLocation(value);
         break;
       case "number":
         setNumber(value);
@@ -59,11 +61,31 @@ const DonationForm = () => {
     }
   };
 
+  const getUserLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (err) => {
+          setLocationError(err.message);
+        }
+      );
+    } else {
+      setLocationError("Geolocation is not supported by this browser.");
+    }
+  };
+  const {longitude,latitude}=location
+
   const formData = {
     foodName,
     quantity,
     expirationDate,
-    location,
+    longitude,
+    latitude,
     name,
     number,
     delivery,
@@ -74,9 +96,9 @@ const DonationForm = () => {
   const { mutate, isError, error, isPending } = useMutation({
     mutationFn: firebase.handleNewMealsListing,
     onSuccess: () => {
-      <Notification title='meals donated successfully' />;
-      queryClient.invalidateQueries(['meals']);
-      navigate('/donation/meals');
+      <Notification title="meals donated successfully" />;
+      queryClient.invalidateQueries(["meals"]);
+      navigate("/donation/meals");
     },
   });
 
@@ -167,22 +189,43 @@ const DonationForm = () => {
             name="image-upload"
             onChange={(e) => setImage(e.target.files[0])}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-300"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="location" className="block text-gray-100 mb-2">
-            Location:
-          </label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            value={location}
-            onChange={handleInputChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md "
-          />
+        <div className="w-full mb-5">
+          <label className="block text-gray-100 mb-2">Fetch Location:</label>
+          <div className="flex flex-col md:flex-row gap-3 items-center border border-gray-300 rounded-md p-2">
+            <input
+              type="text"
+              id="latitude"
+              name="latitude"
+              placeholder="Latitude"
+              value={location.latitude}
+              readOnly
+              required
+              className="flex-grow px-3 py-2 border-0 outline-none rounded-md text-gray-700 mb-2 md:mb-0"
+              onClick={getUserLocation}
+            />
+            <input
+              type="text"
+              id="longitude"
+              name="longitude"
+              placeholder="Longitude"
+              value={location.longitude}
+              readOnly
+              required
+              className="flex-grow px-3 py-2 border-0 outline-none rounded-md text-gray-700 mb-2 md:mb-0"
+              onClick={getUserLocation}
+            />
+            <FontAwesomeIcon
+              icon={faLocationDot}
+              className="text-primary-color cursor-pointer center mb-1 md:mr-2"
+              onClick={getUserLocation}
+            />
+          </div>
+          {locationError && (
+            <p className="text-red-500 mt-2">{locationError}</p>
+          )}
         </div>
         <div className="mb-4">
           <label htmlFor="number" className="block text-gray-100 mb-2">
@@ -231,7 +274,7 @@ const DonationForm = () => {
         </div>
         <div className="mt-6">
           {isPending ? (
-            <ButtonLoader content='submitting' />
+            <ButtonLoader content="submitting" />
           ) : (
             <Button
               type="submit"

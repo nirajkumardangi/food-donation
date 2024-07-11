@@ -1,3 +1,4 @@
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useFirebase } from "../utility/Storage";
 import Loader from "./Loader";
@@ -11,7 +12,8 @@ const FoodItemCard = ({
   expirationDate,
   foodName,
   imageURL,
-  location,
+  longitude,
+  latitude,
   number,
   photoURL,
 }) => {
@@ -21,6 +23,12 @@ const FoodItemCard = ({
     queryKey: ["meals", imageURL],
     queryFn: () => firebase.getImageURL(imageURL),
   });
+
+  // Function to open Google Maps link for given latitude and longitude
+  const openGoogleMaps = () => {
+    const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+    window.open(url, "_blank");
+  };
 
   return (
     <div className="max-w-md mx-auto bg-gray-900 shadow-lg rounded-lg overflow-hidden mt-4">
@@ -33,16 +41,24 @@ const FoodItemCard = ({
         <h1 className="text-xl font-semibold text-primary-color">{foodName}</h1>
         <p className="mt-2 text-secondary-color">{description}</p>
         <p className="mt-2 text-secondary-color">
-          <strong>Quantity:</strong> {quantity}
+          <strong>Quantity :</strong> {quantity}
         </p>
         <p className="mt-2 text-secondary-color">
-          <strong>Location:</strong> {location}
+          <strong>Locate Food :</strong>{" "}
+          <span
+            className="text-blue-500 cursor-pointer"
+            onClick={openGoogleMaps}
+          >
+            {latitude}, {longitude}
+          </span>
         </p>
         <p className="mt-2 text-secondary-color">
-          <strong>Expiration Date:</strong> {expirationDate}
+          <strong>Expiration Date :</strong> {expirationDate}
         </p>
         <p className="mt-2 text-secondary-color">
-          <strong>Contact:</strong> {displayName}, {userEmail}, {number}
+          <strong>Name :</strong> {displayName}
+          <br />
+          <strong>Email :</strong> {userEmail}
         </p>
         <img
           className="mt-2 w-10 h-10 rounded-full"
@@ -53,4 +69,5 @@ const FoodItemCard = ({
     </div>
   );
 };
+
 export default FoodItemCard;
