@@ -31,7 +31,7 @@ export default function UserIcon() {
   const userPhoto=firebase.user.photoURL
 
   return (
-    <div className="fixed top-3 ">
+    <div className="fixed top-4 right-20 md:right-7">
       <img
         id="avatarButton"
         type="button"
@@ -47,25 +47,25 @@ export default function UserIcon() {
           dropdownOpen ? "block " : "hidden"
         } fixed top-15 right-5 bg-gray-800 divide-y divide-gray-100 rounded-lg shadow w-44`}
       >
-        <div className="px-4 py-3 text-sm text-secondary-color">
+        <div className="px-4 py-3 text-sm text-gray-100">
           <div>
             {firebase.user.displayName ? firebase.user.displayName : "user"}
           </div>
           <div className="font-medium truncate">{firebase.user.email}</div>
         </div>
         <ul
-          className="py-2 text-sm text-secondary-color"
+          className="py-2 text-sm text-gray-100"
           aria-labelledby="avatarButton"
         >
           <li>
-            <Link to="/dashboard" className="block px-4 py-2  hover:bg-primary-color ">
+            <Link to="/dashboard" className="block px-4 py-2 hover:hover:bg-gray-600 transition-all duration-500 ease-in-out">
               Dashboard
             </Link>
           </li>
           <li>
             <a
               href="#"
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition-all duration-500 ease-in-out"
             >
               Settings
             </a>
@@ -75,7 +75,7 @@ export default function UserIcon() {
         <div className="py-1">
           <Link
             href="#"
-            className="block px-4 py-2 text-sm text-secondary-color hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+            className="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white transition-all duration-500 ease-in-out"
             onClick={handleLogout}
           >
            {isPending ? <ButtonLoader content='wait...'/> :'Sign out'} 

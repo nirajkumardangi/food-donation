@@ -22,7 +22,7 @@ const ToastNotification = ({ type, content }) => {
   return (
     <div
       id="toast-success"
-      className="flex items-center justify-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-gray-900 rounded-lg shadow dark:text-gray-100 dark:bg-gray-800 fixed top-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-1000 ease-in-out"
+      className="flex items-center justify-center w-full max-w-xs p-4 mb-4 text-gray-100 bg-gray-700 rounded-lg shadow dark:text-gray-100 dark:bg-gray-700 fixed top-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ease-in-out"
       role="alert"
     >
       <div
