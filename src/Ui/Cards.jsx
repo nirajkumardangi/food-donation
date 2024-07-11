@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useFirebase } from "../utility/Storage";
 import Loader from "./Loader";
 
-const FoodItemCard = ({
+const Cards = ({
   quantity,
   userId,
   userEmail,
@@ -70,4 +70,4 @@ const FoodItemCard = ({
   );
 };
 
-export default FoodItemCard;
+export default Cards;

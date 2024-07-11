@@ -16,7 +16,14 @@ import { QueryClient } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
 export const firebaseAuth = getAuth(fireBase);
 export const useFirebase = () => useContext(firebaseContext);
-import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const queryClient = new QueryClient();
@@ -104,8 +111,8 @@ export const FirebaseProvider = (props) => {
         foodName,
         quantity,
         expirationDate,
-         longitude,
-    latitude,
+        longitude,
+        latitude,
         name,
         number,
         image,
@@ -167,24 +174,25 @@ export const FirebaseProvider = (props) => {
     }
   }
 
- async function getMealsByUserId(Id) {
-  try {
-    const mealsRef = fireStore.collection('Meals');
-    const querySnapshot = await mealsRef.where('userId', '==', Id).get();
+  async function getMealsByUserId() {
+    try {
 
+      if(!user){
+        return null
+      }
+      const collectionRef = collection(fireStore, "Meals");
+      const q = query(collectionRef, where("userId", "==", user.uid));
+      const result = await getDocs(q);
+      console.log(result);
 
-    const meals = [];
-    querySnapshot.forEach(doc => {
-      meals.push({ ...doc.data() });
-    });
-
-    return meals;
-  } catch (error) {
-    console.error('Error querying meals:', error);
-    throw new Error('Failed to get meals by user ID');
-  }
-}
-
+      return result;
+    }
+     catch (error) {
+      error.title = "unable to fetch the Meals";
+      throw error;
+    }
+    }
+  
 
   return (
     <firebaseContext.Provider

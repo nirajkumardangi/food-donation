@@ -7,6 +7,7 @@ import { useFirebase } from '../../utility/Storage';
 import { useMutation } from '@tanstack/react-query';
 import ButtonLoader from '../../Ui/Notification';
 import ToastNotification from '../../pages/ToastNotification'
+import fireBase from '../../utility/firebaseSetUp';
   
 
 const Dashboard = () => {
@@ -24,10 +25,12 @@ const Dashboard = () => {
 
   function handleLogout() {
     mutate();
+
     navigate("./");
   }
 
-console.log(Firebase.user);
+
+
   return (
     <div className="bg-gray-900 min-h-screen flex flex-col items-center md:pt-24 px-4 pb-10 sm:px-6 lg:px-8 pt-24">
       <h1 className="text-4xl text-primary-color font-bold mb-8">My Dashboard</h1>
@@ -52,7 +55,7 @@ console.log(Firebase.user);
           <FontAwesomeIcon icon={faPhone} className="text-white text-4xl md:text-6xl mb-4" />
           <h2 className="text-white text-lg md:text-xl font-semibold">Contact Us</h2>
         </Link>
-        <Link to={`/auth/`} className="bg-gray-800 p-6 md:p-10 rounded-lg shadow-md flex flex-col items-center transform transition-all duration-300 hover:scale-105 hover:bg-primary-color">
+        <Link to={`/user/${Firebase.user.uid}`}  className="bg-gray-800 p-6 md:p-10 rounded-lg shadow-md flex flex-col items-center transform transition-all duration-300 hover:scale-105 hover:bg-primary-color">
           <FontAwesomeIcon icon={faPhone} className="text-white text-4xl md:text-6xl mb-4" />
           <h2 className="text-white text-lg md:text-xl font-semibold">Profile</h2>
         </Link>
