@@ -7,7 +7,7 @@ import { useFirebase } from '../../utility/Storage';
 import { useMutation } from '@tanstack/react-query';
 import ButtonLoader from '../../Ui/Notification';
 import ToastNotification from '../../pages/ToastNotification'
-import fireBase from '../../utility/firebaseSetUp';
+
   
 
 const Dashboard = () => {
@@ -55,10 +55,7 @@ const Dashboard = () => {
           <FontAwesomeIcon icon={faPhone} className="text-white text-4xl md:text-6xl mb-4" />
           <h2 className="text-white text-lg md:text-xl font-semibold">Contact Us</h2>
         </Link>
-        <Link to={`/user/${Firebase.user.uid}`}  className="bg-gray-800 p-6 md:p-10 rounded-lg shadow-md flex flex-col items-center transform transition-all duration-300 hover:scale-105 hover:bg-primary-color">
-          <FontAwesomeIcon icon={faPhone} className="text-white text-4xl md:text-6xl mb-4" />
-          <h2 className="text-white text-lg md:text-xl font-semibold">Profile</h2>
-        </Link>
+        
         <Link  className="bg-gray-800 p-6 md:p-10 rounded-lg shadow-md flex flex-col items-center transform transition-all duration-300 hover:scale-105 hover:bg-primary-color" onClick={handleLogout}>
           <FontAwesomeIcon icon={faSignOutAlt} className="text-white text-4xl md:text-6xl mb-4" />
           <h2 className="text-white text-lg md:text-xl font-semibold"> {isPending ? <ButtonLoader content={'wait...'}/> : 'Log Out'}</h2>

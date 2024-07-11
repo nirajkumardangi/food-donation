@@ -1,50 +1,50 @@
-/* eslint-disable react/prop-types */
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import avatar from "../../src/assets/userAvtar.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
+import UserProfileCard from "./UserProfileCard";
 import { useFirebase } from "../utility/Storage";
-// import ToastNotification from "../pages/ToastNotification";
-import Loader from "../Ui/Loader";
-import ErrorPage from '../Ui/Error'
-import  Cards from '../Ui/Cards'
+
 const UserProfile = () => {
-  const params = useParams();
-  const firebase = useFirebase();
+  const Firebase = useFirebase();
 
-  console.log(params.id);
-
-  const { data, isPending, isError, error } = useQuery({
-    queryKey: ["meals"],
-    queryFn: firebase.getMealsByUserId,
-  });
-
-  let content = "";
-
-   if (isPending) {
-    content = <Loader />
-  }
-  if(isError){
-  
-    content = <ErrorPage title={error.title} message={error.message}/>
-  }
-
-  if (data) {
-    content = <div className="container mx-auto p-4 mt-14">
-      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data.docs.map((meal, index) => (
-          <li key={index} className="flex justify-center">
-            <Cards {...meal.data()} />
-          </li>
-        ))}
-      </ul>
+  return (
+    <div className="md:pt-24 px-4 pb-10 sm:px-6 lg:px-8 pt-24 bg-gray-100">
+      <h1 className="text-4xl font-bold mb-8 text-center text-primary-color">
+        User Profile
+      </h1>
+      <div className="max-w-2xl mx-auto bg-gray-900 rounded-xl shadow-md overflow-hidden">
+        <div className="relative flex justify-center mt-10">
+          <img
+            className="h-32 w-32 rounded-full border-2 border-gray-200"
+            src={Firebase.user.photoURL}
+            alt="User Avatar"
+          />
+        </div>
+        <div className="text-center mt-4">
+          <p className="text-gray-100">Welcome Back!</p>
+          <h1 className="text-2xl font-semibold text-primary-color">
+            {Firebase.user.displayName}
+          </h1>
+          <div className="flex flex-col gap-5 items-center justify-center mt-4 bg-gray-800 text-gray-100 py-2">
+            <div className="flex items-center justify-center gap-2 text-center px-4">
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                className="text-gray-300 text-xl"
+              />
+              <p className="font-semibold text-gray-300">
+                {Firebase.user.email}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 className="text-4xl font-bold mb-4 mt-5 text-center text-primary-color">History</h2>
+        <UserProfileCard />
+      </div>
+      
     </div>
-   
-  }
-
-  return <>
-    {content}
-  </>
-  
-
-}
+  );
+};
 
 export default UserProfile;

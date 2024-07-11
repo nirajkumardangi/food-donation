@@ -59,6 +59,8 @@ const Cards = ({
           <strong>Name :</strong> {displayName}
           <br />
           <strong>Email :</strong> {userEmail}
+          <br />
+          <strong>Number :</strong> {number}
         </p>
         <img
           className="mt-2 w-10 h-10 rounded-full"

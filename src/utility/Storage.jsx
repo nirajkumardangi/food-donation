@@ -37,6 +37,7 @@ export const FirebaseProvider = (props) => {
   //function for render app component
 
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (user) => {
       user ? setUser(user) : null;
@@ -183,7 +184,9 @@ export const FirebaseProvider = (props) => {
       const collectionRef = collection(fireStore, "Meals");
       const q = query(collectionRef, where("userId", "==", user.uid));
       const result = await getDocs(q);
-      console.log(result);
+      
+ 
+
 
       return result;
     }
@@ -206,7 +209,8 @@ export const FirebaseProvider = (props) => {
         handleNewMealsListing,
         getAllDonatedMeals,
         getImageURL,
-        getMealsByUserId
+        getMealsByUserId,
+        
       }}
     >
       {props.children}
