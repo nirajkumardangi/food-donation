@@ -165,6 +165,25 @@ export const FirebaseProvider = (props) => {
     }
   }
 
+ async function getMealsByUserId(Id) {
+  try {
+    const mealsRef = fireStore.collection('Meals');
+    const querySnapshot = await mealsRef.where('userId', '==', Id).get();
+
+
+    const meals = [];
+    querySnapshot.forEach(doc => {
+      meals.push({ ...doc.data() });
+    });
+
+    return meals;
+  } catch (error) {
+    console.error('Error querying meals:', error);
+    throw new Error('Failed to get meals by user ID');
+  }
+}
+
+
   return (
     <firebaseContext.Provider
       value={{
@@ -177,6 +196,7 @@ export const FirebaseProvider = (props) => {
         handleNewMealsListing,
         getAllDonatedMeals,
         getImageURL,
+        getMealsByUserId
       }}
     >
       {props.children}
