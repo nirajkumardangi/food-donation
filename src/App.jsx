@@ -13,7 +13,7 @@ import DonatedMealsList from "./components/Donation/DonatedMealsList";
 import DonationForm from "./components/Donation/DonationForm";
 import DonationsPage from "./pages/Donation";
 import Dashboard from './components/Dashboard/Dashboard'
-
+import UserProfile from "./pages/userProfile";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -26,12 +26,15 @@ const router = createBrowserRouter([
       { path: "contact", element: <Contact /> },
       { path: "developers", element: <Developers /> },
       { path: 'dashboard', element: <Dashboard /> },
+      { path: "user/:id", element: <UserProfile /> },
       {
         path: "donation",
         element: <DonationsPage />,
         children: [
           { path: "form", element: <DonationForm /> },
           { path: "meals", element: <DonatedMealsList /> },
+          
+
         ],
       },
     ],

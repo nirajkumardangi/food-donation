@@ -5,9 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import ErrorPage from "../Ui/Error";
-import LoadingIndicator from "../Ui/LoadingIndicator";
 import { useFirebase } from "../utility/Storage";
 import ButtonLoader from "../Ui/Notification";
+import ToastNotification from "./ToastNotification";
+
 function AuthForm() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -41,6 +42,7 @@ function AuthForm() {
     mutationKey: ["Login"],
     mutationFn: Firebase.loginWithGoogle,
     onSuccess: () => {
+      <ToastNotification type='success' content='You are successfully logged in with Google'/>
       alert("You are successfully logged in with Google");
       navigate("/dashboard");
     },

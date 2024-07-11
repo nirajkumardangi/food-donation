@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useFirebase } from '../../utility/Storage';
 import { useMutation } from '@tanstack/react-query';
-import Loader from '../../Ui/Loader';
 import ButtonLoader from '../../Ui/Notification';
+import ToastNotification from '../../pages/ToastNotification'
+
   
 
 const Dashboard = () => {
@@ -17,14 +18,18 @@ const Dashboard = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: Firebase.signOutFunction,
     onSuccess: () => {
+     <ToastNotification  type='success' content='log out successfully'/>
       navigate('/')
     },
   });
 
   function handleLogout() {
     mutate();
+
     navigate("./");
   }
+
+
 
   return (
     <div className="bg-gray-900 min-h-screen flex flex-col items-center md:pt-24 px-4 pb-10 sm:px-6 lg:px-8 pt-24">
@@ -50,6 +55,7 @@ const Dashboard = () => {
           <FontAwesomeIcon icon={faPhone} className="text-white text-4xl md:text-6xl mb-4" />
           <h2 className="text-white text-lg md:text-xl font-semibold">Contact Us</h2>
         </Link>
+        
         <Link  className="bg-gray-800 p-6 md:p-10 rounded-lg shadow-md flex flex-col items-center transform transition-all duration-300 hover:scale-105 hover:bg-primary-color" onClick={handleLogout}>
           <FontAwesomeIcon icon={faSignOutAlt} className="text-white text-4xl md:text-6xl mb-4" />
           <h2 className="text-white text-lg md:text-xl font-semibold"> {isPending ? <ButtonLoader content={'wait...'}/> : 'Log Out'}</h2>
