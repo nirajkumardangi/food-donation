@@ -2,11 +2,15 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useFirebase } from "../utility/Storage";
 import Loader from "./Loader";
-
+import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
+
+
+
 const Cards = ({
+  id,
   quantity,
   userId,
   userEmail,
@@ -19,8 +23,11 @@ const Cards = ({
   latitude,
   number,
   photoURL,
+  meals
 }) => {
   const firebase = useFirebase();
+
+  
 
   const { data: imageUrl, isPending, isError, error } = useQuery({
     queryKey: ["meals", imageURL],
@@ -43,7 +50,7 @@ const Cards = ({
       <div className="p-4">
         <h1 className="text-xl font-semibold text-primary-color">{foodName}</h1>
         <p className="mt-2 text-secondary-color">
-          <strong>Quantity :</strong> {quantity}
+          <strong>Quantity :</strong> {quantity} serve
         </p>
         <p className="mt-1.5 text-secondary-color">
           <strong>Locate Food : </strong>
@@ -69,6 +76,7 @@ const Cards = ({
           <br />
           <strong className="mt">Phone Number :</strong> {number}
         </p>
+        <Link className="bg-white p-5" to={`/donation/request/${id}`}>request for food</Link>
         <img
           className="mt-1.5 w-10 h-10 rounded-full"
           src={photoURL}
