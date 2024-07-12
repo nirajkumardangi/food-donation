@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useParams } from "react-router-dom";
 import {
   faDonate,
   faHandsHelping,
@@ -17,7 +18,7 @@ import ToastNotification from "../../pages/ToastNotification";
 const Dashboard = () => {
   const Firebase = useFirebase();
   const navigate = useNavigate();
-
+const params=useParams()
   const { mutate, isPending } = useMutation({
     mutationFn: Firebase.signOutFunction,
     onSuccess: () => {
@@ -62,7 +63,7 @@ const Dashboard = () => {
             Receive
           </h2>
         </Link>
-        <Link className="bg-gray-800 p-6 md:p-10 rounded-lg shadow-md flex flex-col items-center transform transition-all duration-300 hover:scale-105 hover:bg-primary-color">
+        <Link  to={"/donation/meals"} className="bg-gray-800 p-6 md:p-10 rounded-lg shadow-md flex flex-col items-center transform transition-all duration-300 hover:scale-105 hover:bg-primary-color">
           <FontAwesomeIcon
             icon={faHistory}
             className="text-white text-4xl md:text-6xl mb-4"
