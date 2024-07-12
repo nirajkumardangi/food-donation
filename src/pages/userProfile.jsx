@@ -39,7 +39,7 @@ const UserProfile = () => {
         </div>
       </div>
       <div>
-        <h2 className="text-4xl font-bold mb-4 mt-5 text-center text-primary-color">History</h2>
+        <h2 className="text-4xl font-bold mt-6 text-center text-primary-color">History</h2>
         <UserProfileCard />
       </div>
       

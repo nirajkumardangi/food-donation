@@ -78,7 +78,7 @@ const DonationForm = () => {
       setLocationError("Geolocation is not supported by this browser.");
     }
   };
-  const {longitude,latitude}=location
+  const { longitude, latitude } = location;
 
   const formData = {
     foodName,
@@ -125,7 +125,7 @@ const DonationForm = () => {
         </h2>
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-100 mb-2">
-            Name:
+            Donar Name:
           </label>
           <input
             type="text"
@@ -235,6 +235,7 @@ const DonationForm = () => {
             type="number"
             id="number"
             name="number"
+            pattern="[789][0-9]{9}"
             value={number}
             onChange={handleInputChange}
             required
