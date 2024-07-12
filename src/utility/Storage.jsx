@@ -46,8 +46,6 @@ export const FirebaseProvider = (props) => {
 
   const isLogin = user ? true : false;
 
-  console.log(user);
-
   async function registration(data) {
     //  function for register the user
     try {
@@ -83,7 +81,6 @@ export const FirebaseProvider = (props) => {
 
   async function loginWithGoogle() {
     // function that is responsible for login via google
-    console.log("login With Google");
     try {
       const response = await signInWithPopup(firebaseAuth, googleProvider);
       return response;
@@ -119,15 +116,11 @@ export const FirebaseProvider = (props) => {
         image,
       } = data;
 
-      console.log("all data arrive here");
-
       const ImageRef = ref(
         fireStorage,
         `upload/images/${Date.now()}-${image.name}`
       );
       const mealsImage_path = await uploadBytes(ImageRef, image);
-
-      console.log("image was uploaded");
 
       const allData = await addDoc(collection(fireStore, "Meals"), {
         foodName,
@@ -143,13 +136,8 @@ export const FirebaseProvider = (props) => {
         userId: user.uid,
       });
 
-      if (allData) {
-        console.log(allData);
-      }
-
       return allData;
     } catch (error) {
-      console.log("error occurred");
       error.title = "add meals unsuccessful please try again";
       throw error;
     }
@@ -177,25 +165,18 @@ export const FirebaseProvider = (props) => {
 
   async function getMealsByUserId() {
     try {
-
-      if(!user){
-        return null
+      if (!user) {
+        return null;
       }
       const collectionRef = collection(fireStore, "Meals");
       const q = query(collectionRef, where("userId", "==", user.uid));
       const result = await getDocs(q);
-      
- 
-
-
       return result;
-    }
-     catch (error) {
+    } catch (error) {
       error.title = "unable to fetch the Meals";
       throw error;
     }
-    }
-  
+  }
 
   return (
     <firebaseContext.Provider
@@ -210,7 +191,6 @@ export const FirebaseProvider = (props) => {
         getAllDonatedMeals,
         getImageURL,
         getMealsByUserId,
-        
       }}
     >
       {props.children}

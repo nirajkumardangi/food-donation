@@ -51,7 +51,7 @@ const Cards = ({
             className="text-blue-500 cursor-pointer"
             onClick={openGoogleMaps}
           >
-            {latitude}, {longitude}
+            Get Location
           </span>
           <FontAwesomeIcon
             icon={faLocationDot}
