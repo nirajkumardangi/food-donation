@@ -2,8 +2,12 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useFirebase } from "../utility/Storage";
 import Loader from "./Loader";
+import {Link} from 'react-router-dom'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 const Cards = ({
+  id,
   quantity,
   userId,
   userEmail,
@@ -16,8 +20,11 @@ const Cards = ({
   latitude,
   number,
   photoURL,
+  meals
 }) => {
   const firebase = useFirebase();
+
+  
 
   const { data: imageUrl, isPending, isError, error } = useQuery({
     queryKey: ["meals", imageURL],
@@ -31,39 +38,44 @@ const Cards = ({
   };
 
   return (
-    <div className="max-w-md mx-auto bg-gray-900 shadow-lg rounded-lg overflow-hidden mt-4">
+    <div className="w-full md:max-w-full mx-auto bg-gray-900 shadow-lg rounded-lg mt-4 mb-4">
       <img
-        className="w-full h-48 object-cover"
+        className="w-full h-64 object-cover shadow-lg rounded-lg"
         src={imageUrl}
         alt={isPending ? <Loader /> : imageURL}
       />
       <div className="p-4">
         <h1 className="text-xl font-semibold text-primary-color">{foodName}</h1>
-        <p className="mt-2 text-secondary-color">{description}</p>
         <p className="mt-2 text-secondary-color">
-          <strong>Quantity :</strong> {quantity}
+          <strong>Quantity :</strong> {quantity} serve
         </p>
-        <p className="mt-2 text-secondary-color">
-          <strong>Locate Food :</strong>{" "}
+        <p className="mt-1.5 text-secondary-color">
+          <strong>Locate Food : </strong>
           <span
             className="text-blue-500 cursor-pointer"
             onClick={openGoogleMaps}
           >
             {latitude}, {longitude}
           </span>
+          <FontAwesomeIcon
+            icon={faLocationDot}
+            className="text-gray-100 cursor-pointer center ml-2"
+            onClick={openGoogleMaps}
+          />
         </p>
-        <p className="mt-2 text-secondary-color">
+        <p className="mt-1.5 text-secondary-color">
           <strong>Expiration Date :</strong> {expirationDate}
         </p>
-        <p className="mt-2 text-secondary-color">
+        <p className="mt-1.5 text-secondary-color">
           <strong>Name :</strong> {displayName}
           <br />
-          <strong>Email :</strong> {userEmail}
+          <strong className="mt-1">Email :</strong> {userEmail}
           <br />
-          <strong>Number :</strong> {number}
+          <strong className="mt">Phone Number :</strong> {number}
         </p>
+        <Link className="bg-white p-5" to={`/donation/request/${id}`}>request for food</Link>
         <img
-          className="mt-2 w-10 h-10 rounded-full"
+          className="mt-1.5 w-10 h-10 rounded-full"
           src={photoURL}
           alt={displayName}
         />

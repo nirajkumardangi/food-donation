@@ -13,7 +13,7 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 const DonationForm = () => {
   const [foodName, setFoodName] = useState("");
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(null);
   const [expirationDate, setExpirationDate] = useState("");
   const [number, setNumber] = useState("");
   const [delivery, setDelivery] = useState("pickup");
