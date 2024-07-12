@@ -28,10 +28,10 @@ const UserProfileCard = () => {
   if (data) {
 
   
-    content = <div className="container mx-auto p-4 mt-14">
+    content = <div className="container mx-auto mt-2">
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {data.docs.map((meal, index) => (
-          <li key={index} className="flex justify-center">
+          <li key={index} className="flex items-center justify-center">
             <Cards {...meal.data()} />
           </li>
         ))}

@@ -16,7 +16,6 @@ function AuthForm() {
   const navigate = useNavigate();
   const isLogin = currentAuth.get("mode") === "login";
   const Firebase = useFirebase();
-  
 
   useEffect(() => {
     if (Firebase.isLogin) {
@@ -42,7 +41,10 @@ function AuthForm() {
     mutationKey: ["Login"],
     mutationFn: Firebase.loginWithGoogle,
     onSuccess: () => {
-      <ToastNotification type='success' content='You are successfully logged in with Google'/>
+      <ToastNotification
+        type="success"
+        content="You are successfully logged in with Google"
+      />;
       alert("You are successfully logged in with Google");
       navigate("/dashboard");
     },
@@ -133,7 +135,7 @@ function AuthForm() {
             type="submit"
             className="w-full bg-primary-color hover:bg-secondary-color text-white font-bold py-2 px-4 rounded flex items-center justify-center"
           >
-            {isPending ? <ButtonLoader content='please wait...' /> : "Save"}
+            {isPending ? <ButtonLoader content="please wait..." /> : "Save"}
           </button>
           <button
             type="button"
