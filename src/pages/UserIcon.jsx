@@ -21,8 +21,6 @@ export default function UserIcon() {
     navigate("./");
   }
 
-  console.log(firebase.user.photoURL);
-
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };

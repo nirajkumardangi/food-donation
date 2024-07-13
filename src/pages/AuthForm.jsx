@@ -23,12 +23,15 @@ function AuthForm() {
     }
   }, [Firebase, navigate]);
 
+  const loginSuccessWithEmail = <ToastNotification type="success" content="You are successfully logged in with Email"/>
+  const loginErrorWithEmail = <ToastNotification type="error" content="Error! on login with Email"/>
+
   const { data, mutate, isError, error, isPending } = useMutation({
     mutationFn: isLogin ? Firebase.Login : Firebase.registration,
     onSuccess: () => {
       setEmail("");
       setPassword("");
-      alert(isLogin ? "Login successful" : "Register successful");
+      isLogin ? loginSuccessWithEmail : loginErrorWithEmail; 
       isLogin ? navigate("/dashboard") : navigate("/auth?mode=login");
     },
   });
@@ -45,7 +48,6 @@ function AuthForm() {
         type="success"
         content="You are successfully logged in with Google"
       />;
-      alert("You are successfully logged in with Google");
       navigate("/dashboard");
     },
   });

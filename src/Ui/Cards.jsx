@@ -2,12 +2,9 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useFirebase } from "../utility/Storage";
 import Loader from "./Loader";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-
-
-
 
 const Cards = ({
   id,
@@ -23,11 +20,9 @@ const Cards = ({
   latitude,
   number,
   photoURL,
-  meals
+  meals,
 }) => {
   const firebase = useFirebase();
-
-  
 
   const { data: imageUrl, isPending, isError, error } = useQuery({
     queryKey: ["meals", imageURL],
@@ -58,7 +53,7 @@ const Cards = ({
             className="text-blue-500 cursor-pointer"
             onClick={openGoogleMaps}
           >
-            {latitude}, {longitude}
+            Get Location
           </span>
           <FontAwesomeIcon
             icon={faLocationDot}
@@ -76,12 +71,19 @@ const Cards = ({
           <br />
           <strong className="mt">Phone Number :</strong> {number}
         </p>
-        <Link className="bg-white p-5" to={`/donation/request/${id}`}>request for food</Link>
-        <img
-          className="mt-1.5 w-10 h-10 rounded-full"
-          src={photoURL}
-          alt={displayName}
-        />
+        <p className="flex items-center justify-between mt-1.5">
+          <img
+            className="mt-1.5 w-10 h-10 rounded-full"
+            src={photoURL}
+            alt={displayName}
+          />
+          <Link
+            to={`/donation/request/${id}`}
+            className="px-4 py-2.5 text-white focus:ring-4 focus:outline-none bg-primary-color hover:bg-secondary-color font-light-bold rounded-lg text-sm text-center transition-colors duration-500"
+          >
+            Request This Food
+          </Link>
+        </p>
       </div>
     </div>
   );
