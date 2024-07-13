@@ -199,6 +199,8 @@ export const FirebaseProvider = (props) => {
   }
 
   async function deleteDocBYId(id) {
+
+    
     try {
       await deleteDoc(doc(fireStore, "Meals", id));
     } catch (error) {
