@@ -82,7 +82,7 @@ const DonationForm = () => {
   });
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault(event.target);
 
     if (data) {
       if (quantity > data.quantity) {
