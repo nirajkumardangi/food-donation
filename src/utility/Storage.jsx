@@ -23,6 +23,10 @@ import {
   getDocs,
   query,
   where,
+  doc,
+  getDoc,
+  deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -81,6 +85,7 @@ export const FirebaseProvider = (props) => {
 
   async function loginWithGoogle() {
     // function that is responsible for login via google
+
     try {
       const response = await signInWithPopup(firebaseAuth, googleProvider);
       return response;
@@ -171,9 +176,46 @@ export const FirebaseProvider = (props) => {
       const collectionRef = collection(fireStore, "Meals");
       const q = query(collectionRef, where("userId", "==", user.uid));
       const result = await getDocs(q);
+
       return result;
     } catch (error) {
       error.title = "unable to fetch the Meals";
+      throw error;
+    }
+  }
+
+  async function getDocsFromId(id) {
+    try {
+      const docRef = doc(fireStore, "Meals", id);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        return docSnap.data();
+      }
+    } catch (error) {
+      error.title = "unable to fetch the Meals";
+      throw error;
+    }
+  }
+
+  async function deleteDocBYId(id) {
+    try {
+      await deleteDoc(doc(fireStore, "Meals", id));
+    } catch (error) {
+      error.title = "unable to delete the meal";
+      throw error;
+    }
+  }
+
+  async function updateDocById(data) {
+    try {
+      const washingtonRef = doc(fireStore, "Meals", data.id);
+
+      await updateDoc(washingtonRef, {
+        quantity: data.quantity,
+      });
+    } catch (error) {
+      error.title = "unable to fetch update the  Meals";
       throw error;
     }
   }
@@ -191,6 +233,9 @@ export const FirebaseProvider = (props) => {
         getAllDonatedMeals,
         getImageURL,
         getMealsByUserId,
+        getDocsFromId,
+        deleteDocBYId,
+        updateDocById,
       }}
     >
       {props.children}

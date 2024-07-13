@@ -26,13 +26,13 @@ export default function CardDefault() {
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {data.docs.map((meal, index) => (
             <li key={index} className="flex justify-center">
-              <Cards {...meal.data()} />
+              <Cards id={meal.id} {...meal.data()} meals={meal} />
             </li>
           ))}
         </ul>
       </div>
     );
-  }
 
-  return <>{content}</>;
+    return <>{content}</>;
+  }
 }
