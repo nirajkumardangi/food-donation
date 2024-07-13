@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useFirebase } from "../../utility/Storage";
 import UserIcon from "../../pages/UserIcon";
+import logo from "../../assets/logo.png"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,7 +14,7 @@ const Header = () => {
     <nav className="bg-gray-900 fixed w-full z-20 top-0 border-b border-gray-700 mb-10">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="#" className="flex items-center space-x-3">
-          <img src="logo.png" className="h-8 text-white" alt="Logo" />
+          <img src={logo} className="h-8 text-white" alt="Logo" />
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-0">
           {Firebase.isLogin ? (

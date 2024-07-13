@@ -11,7 +11,6 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-
 const DonationForm = () => {
   const [location, setLocation] = useState({ latitude: "", longitude: "" });
   const [locationError, setLocationError] = useState("");
@@ -65,8 +64,6 @@ const DonationForm = () => {
     queryFn: () => firebase.getDocsFromId(params.mealsId),
   });
 
- 
-
   const {
     mutate,
     isPending: MutatePending,
@@ -77,11 +74,11 @@ const DonationForm = () => {
       data && quantity < data.quantity
         ? firebase.updateDocById
         : firebase.deleteDocBYId,
-        onSuccess:()=>{
-          queryClient.invalidateQueries(['Meals']);
-           alert('food are requested')
-           navigate('/')
-        }
+    onSuccess: () => {
+      queryClient.invalidateQueries(["Meals"]);
+      alert("food are requested");
+      navigate("/");
+    },
   });
 
   const handleSubmit = (event) => {
@@ -89,14 +86,12 @@ const DonationForm = () => {
 
     if (data) {
       if (quantity > data.quantity) {
-  
-
-        
-            alert("quantity is greater than available quantity please decrease the quantity")
-        
+        alert(
+          "quantity is greater than available quantity please decrease the quantity"
+        );
       }
 
-      if (quantity === data.quantity) {
+      if (quantity == data.quantity) {
         mutate(params.mealsId);
       }
 
