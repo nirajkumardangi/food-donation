@@ -69,7 +69,7 @@ const Dashboard = () => {
           <h2 className="text-white text-lg md:text-xl font-semibold">Receive</h2>
         </Link>
         <Link
-          to={/user/${user.uid}}
+          to={'/user/${user.uid}'}
           className="bg-gray-800 p-6 md:p-10 rounded-lg shadow-md flex flex-col items-center transform transition-all duration-300 hover:scale-105 hover:bg-primary-color"
         >
           <FontAwesomeIcon
