@@ -4,6 +4,10 @@
 
 The Food Donation Platform is a web application that facilitates the donation and distribution of food to those in need. It connects donors with food banks and shelters, allowing them to list, request, and manage food donations efficiently.
 
+## Live Link
+
+https://fooddonationbyrn.netlify.app
+
 ## Features
 
 1. **User Authentication**: Secure login and registration for users.
@@ -75,17 +79,20 @@ my-food-donation-app/
 ### Steps
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/nirajkumardangi/food-donation.git
    cd food-donation
    ```
 
 2. **Install dependencies**:
+
    ```bash
    npm install
    ```
 
 3. **Start the development server**:
+
    ```bash
    npm start
    ```
