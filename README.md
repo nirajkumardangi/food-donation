@@ -6,7 +6,7 @@ The Food Donation Platform is a web application that facilitates the donation an
 
 ## Live Link
 
-https://fooddonationbyrn.netlify.app
+https://feedaid.netlify.app
 
 ## Features
 
@@ -109,7 +109,6 @@ my-food-donation-app/
 5. **Request Donations**: Food banks and shelters can request specific donations.
 6. **Manage Profile**: Users can view and update their profiles.
 7. **Schedule Pickups**: Users can schedule pickup times for donations.
-8. **Rate Donations**: Recipients can rate and provide feedback on donations received.
 
 ## Contribution
 
