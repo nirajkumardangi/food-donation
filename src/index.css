@@ -1,33 +1,47 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  html {
-    font-family: "Quicksand", sans-serif;
+  html,
+  body {
+    font-family: "Inter", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: auto;
-    -moz-osx-font-smoothing: auto;
+    background-color: #030712;
+    background-image:
+      radial-gradient(at 0% 0%, hsla(16, 100%, 48%, 0.1) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(38, 100%, 50%, 0.1) 0px, transparent 50%);
+    background-attachment: fixed;
+    color: #e2e8f0;
+    min-height: 100vh;
   }
-} */
 
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  html {
-    font-family: "Quicksand", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: auto;
-    -moz-osx-font-smoothing: auto;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Outfit", sans-serif;
   }
+}
+
+/* Custom Scrollbar for a premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f74f22;
 }

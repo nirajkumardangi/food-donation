@@ -1,45 +1,57 @@
 import { useState } from "react";
-import { Form, useNavigate } from "react-router-dom";
-import { useFirebase } from "../utility/Storage";
-import queryClient from "../utility/Storage";
-import Notification from "../Ui/Notification";
-import ErrorPage from "../Ui/Error";
-import { Button } from "@material-tailwind/react";
-import ButtonLoader from "../Ui/ButtonLoader";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { useParams } from "react-router-dom";
+import { Form, useNavigate, useParams } from "react-router-dom";
+import { useFirebase } from "../context/FirebaseContext";
+import queryClient from "../context/FirebaseContext";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import ButtonLoader from "../components/ui/ButtonLoader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faLocationDot,
+  faBuilding,
+  faPhone,
+  faUtensils,
+} from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
-const DonationForm = () => {
+const NGODetailPage = () => {
   const [location, setLocation] = useState({ latitude: "", longitude: "" });
-  const [locationError, setLocationError] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [number, setNumber] = useState("");
-
+  const [name, setName] = useState("");
+  const [locationLoading, setLocationLoading] = useState(false);
   const firebase = useFirebase();
-  const [name, setName] = useState(null);
   const navigate = useNavigate();
+  const params = useParams();
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    switch (name) {
-      case "quantity":
-        setQuantity(value);
-        break;
+  const { data, isPending: isFetching } = useQuery({
+    queryKey: ["meals", params.mealsId],
+    queryFn: () => firebase.getDocsFromId(params.mealsId),
+  });
 
-      case "number":
-        setNumber(value);
-        break;
-      case "name":
-        setName(value);
-        break;
-      default:
-        break;
-    }
-  };
+  const { mutate: updateMeal, isPending: MutatePending } = useMutation({
+    mutationFn: (payload) => {
+      if (payload.action === "delete") {
+        return firebase.deleteDocBYId(payload.id);
+      } else {
+        return firebase.updateDocById({
+          id: payload.id,
+          quantity: payload.quantity,
+        });
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["meals"]);
+      toast.success("Food request submitted successfully!");
+      navigate("/");
+    },
+    onError: () => {
+      toast.error("Failed to request food. Please try again.");
+    },
+  });
 
   const getUserLocation = () => {
+    setLocationLoading(true);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -47,177 +59,208 @@ const DonationForm = () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
+          setLocationLoading(false);
+          toast.success("Location fetched!");
         },
         (err) => {
-          setLocationError(err.message);
-        }
+          setLocationLoading(false);
+          toast.error(err.message || "Unable to fetch location");
+        },
       );
     } else {
-      setLocationError("Geolocation is not supported by this browser.");
+      setLocationLoading(false);
+      toast.error("Geolocation is not supported by this browser.");
     }
   };
-  const { longitude, latitude } = location;
-
-  const params = useParams();
-
-  const { data, isPending, isError, error } = useQuery({
-    queryFn: () => firebase.getDocsFromId(params.mealsId),
-  });
-
-  const {
-    mutate,
-    isPending: MutatePending,
-    isError: MutateIsError,
-    error: is_error,
-  } = useMutation({
-    mutationFn:
-      data && quantity < data.quantity
-        ? firebase.updateDocById
-        : firebase.deleteDocBYId,
-    onSuccess: () => {
-      queryClient.invalidateQueries(["Meals"]);
-      alert("food are requested");
-      navigate("/");
-    },
-  });
 
   const handleSubmit = (event) => {
-    event.preventDefault(event.target);
+    event.preventDefault();
 
-    if (data) {
-      if (quantity > data.quantity) {
-        alert(
-          "quantity is greater than available quantity please decrease the quantity"
-        );
-      }
+    if (!data) return;
 
-      if (quantity == data.quantity) {
-        mutate(params.mealsId);
-      }
+    const reqQty = parseInt(quantity, 10);
+    const availableQty = parseInt(data.quantity, 10);
 
-      if (quantity < data.quantity) {
-        const amount = data.quantity - quantity;
-        mutate({ quantity: amount, id: params.mealsId });
-      }
+    if (reqQty > availableQty) {
+      toast.error(`Only ${availableQty} servings are available.`);
+      return;
+    }
+
+    if (reqQty === availableQty) {
+      updateMeal({ action: "delete", id: params.mealsId });
+    } else {
+      const remainingAmount = availableQty - reqQty;
+      updateMeal({
+        action: "update",
+        id: params.mealsId,
+        quantity: remainingAmount,
+      });
     }
   };
 
+  if (isFetching) {
+    return (
+      <div className="flex justify-center items-center h-[80vh]">
+        <ButtonLoader content="Loading Meal Details..." />
+      </div>
+    );
+  }
+
   return (
-    <div className="md:pt-24 px-4 pb-10 sm:px-6 lg:px-8 pt-20">
-      <Form
-        id="food-listing-form"
-        onSubmit={handleSubmit}
-        method="post"
-        className="max-w-lg mx-auto p-6 bg-gray-900 shadow-md rounded-lg text-black "
+    <div className="md:pt-24 px-4 pb-10 sm:px-6 lg:px-8 pt-20 min-h-screen">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-xl mx-auto backdrop-blur-2xl bg-white/5 border border-white/10 shadow-2xl rounded-2xl overflow-hidden"
       >
-        <h2 className="text-2xl font-light-bold mb-4 text-primary-color">
-          NGO detail form
-        </h2>
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-100 mb-2">
-            NGO Name:
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={name}
-            onChange={handleInputChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md "
-          />
+        <div className="bg-gradient-to-r from-primary-color/20 to-secondary-color/20 p-6 border-b border-white/10">
+          <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-color to-secondary-color">
+            Request Donation
+          </h2>
+          <p className="text-gray-300 mt-2 text-sm">
+            Fill in your NGO details to claim this donation.
+          </p>
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="quantity" className="block text-gray-100 mb-2">
-            Quantity:
-          </label>
-          <input
-            type="number"
-            id="quantity"
-            name="quantity"
-            value={quantity}
-            onChange={handleInputChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-          />
-        </div>
-        <div className="w-full mb-5">
-          <label className="block text-gray-100 mb-2">NGO location:</label>
-          <div className="flex flex-col md:flex-row gap-3 items-center border border-gray-300 rounded-md p-2">
-            <input
-              type="text"
-              id="latitude"
-              name="latitude"
-              placeholder="Latitude"
-              value={location.latitude}
-              readOnly
-              required
-              className="flex-grow px-3 py-2 border-0 outline-none rounded-md text-gray-700 mb-2 md:mb-0"
-              onClick={getUserLocation}
-            />
-            <input
-              type="text"
-              id="longitude"
-              name="longitude"
-              placeholder="Longitude"
-              value={location.longitude}
-              readOnly
-              required
-              className="flex-grow px-3 py-2 border-0 outline-none rounded-md text-gray-700 mb-2 md:mb-0"
-              onClick={getUserLocation}
-            />
-            <FontAwesomeIcon
-              icon={faLocationDot}
-              className="text-primary-color cursor-pointer center mb-1 md:mr-2"
-              onClick={getUserLocation}
-            />
-          </div>
-          {locationError && (
-            <p className="text-red-500 mt-2">{locationError}</p>
-          )}
-        </div>
-        <div className="mb-4">
-          <label htmlFor="number" className="block text-gray-100 mb-2">
-            Mobile Number:
-          </label>
-          <input
-            type="number"
-            id="number"
-            name="number"
-            value={number}
-            onChange={handleInputChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-          />
-        </div>
-
-        <div className="mt-6">
-          {isPending || MutatePending ? (
-            <ButtonLoader content="loading" />
-          ) : (
-            <Button
-              type="submit"
-              className="w-full bg-primary-color hover:bg-secondary-color text-white font-bold py-2 px-4 rounded"
-              disabled={isPending}
+        <Form onSubmit={handleSubmit} className="p-8 space-y-6">
+          <div className="relative">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-300 mb-2"
             >
-              Request
-            </Button>
-          )}
-        </div>
-
-        <div className="mt-6">
-          {isError ||
-            (MutateIsError && (
-              <ErrorPage
-                title={error || is_error.title}
-                message={error.message || "error occurred"}
+              NGO Name
+            </label>
+            <div className="relative">
+              <FontAwesomeIcon
+                icon={faBuilding}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
               />
-            ))}
-        </div>
-      </Form>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="w-full pl-11 pr-4 py-3 bg-dark-gray/50 border border-white/10 rounded-xl focus:ring-2 focus:ring-primary-color focus:border-transparent text-white placeholder-gray-500 transition-all"
+                placeholder="Hope Foundation"
+              />
+            </div>
+          </div>
+
+          <div className="relative">
+            <label
+              htmlFor="quantity"
+              className="block text-sm font-medium text-gray-300 mb-2 flex justify-between"
+            >
+              <span>Quantity Required</span>
+              <span className="text-secondary-color text-xs bg-secondary-color/10 px-2 py-1 rounded-full">
+                Available: {data?.quantity}
+              </span>
+            </label>
+            <div className="relative">
+              <FontAwesomeIcon
+                icon={faUtensils}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+              />
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                min="1"
+                max={data?.quantity}
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+                required
+                className="w-full pl-11 pr-4 py-3 bg-dark-gray/50 border border-white/10 rounded-xl focus:ring-2 focus:ring-primary-color focus:border-transparent text-white placeholder-gray-500 transition-all"
+                placeholder="Number of servings"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <label className="block text-sm font-medium text-gray-300">
+              NGO Delivery Location
+            </label>
+            <div className="flex gap-4">
+              <button
+                type="button"
+                onClick={getUserLocation}
+                disabled={locationLoading}
+                className="w-1/3 flex items-center justify-center gap-2 bg-dark-gray/60 hover:bg-gray-700 text-white font-medium py-3 px-4 rounded-xl border border-white/10 transition-colors"
+              >
+                <FontAwesomeIcon
+                  icon={faLocationDot}
+                  className={
+                    locationLoading
+                      ? "animate-bounce text-secondary-color"
+                      : "text-primary-color"
+                  }
+                />
+                {locationLoading ? "Locating..." : "Auto Fetch"}
+              </button>
+              <div className="w-2/3 flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Lat"
+                  value={location.latitude}
+                  readOnly
+                  className="w-1/2 px-3 py-3 bg-dark-gray/30 border border-white/10 rounded-xl text-gray-300 cursor-not-allowed"
+                />
+                <input
+                  type="text"
+                  placeholder="Lng"
+                  value={location.longitude}
+                  readOnly
+                  className="w-1/2 px-3 py-3 bg-dark-gray/30 border border-white/10 rounded-xl text-gray-300 cursor-not-allowed"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="relative">
+            <label
+              htmlFor="number"
+              className="block text-sm font-medium text-gray-300 mb-2"
+            >
+              Contact Number
+            </label>
+            <div className="relative">
+              <FontAwesomeIcon
+                icon={faPhone}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+              />
+              <input
+                type="tel"
+                id="number"
+                name="number"
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
+                required
+                className="w-full pl-11 pr-4 py-3 bg-dark-gray/50 border border-white/10 rounded-xl focus:ring-2 focus:ring-primary-color focus:border-transparent text-white placeholder-gray-500 transition-all"
+                placeholder="Phone number"
+              />
+            </div>
+          </div>
+
+          <div className="pt-4">
+            <button
+              type="submit"
+              disabled={MutatePending}
+              className="w-full bg-gradient-to-r from-primary-color to-secondary-color hover:opacity-90 text-white font-bold py-4 px-4 rounded-xl shadow-[0_0_15px_rgba(247,79,34,0.3)] transition-transform transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
+            >
+              {MutatePending ? (
+                <ButtonLoader content="Processing Request..." />
+              ) : (
+                "Confirm Request"
+              )}
+            </button>
+          </div>
+        </Form>
+      </motion.div>
     </div>
   );
 };
 
-export default DonationForm;
+export default NGODetailPage;
