@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://img.icons8.com/color/96/000000/food-donation.png" alt="Logo" width="80" />
+
   <h1>Feed Aid - Food Donation Platform</h1>
   <p>Connecting donors with food banks and shelters to reduce food waste and help those in need.</p>
   
@@ -33,17 +33,6 @@
 - **🗓 Scheduling System**: Coordinate pick-up or drop-off times directly within the platform.
 - **✨ Premium UI/UX**: Built with Tailwind CSS and enhanced with smooth animations via Framer Motion for a premium, mobile-first experience.
 - **🔔 Toast Notifications**: Context-aware success and error handling alerts using React Hot Toast.
-
-## 📸 App Interface
-
-<div align="center">
-  <img src="./src/assets/hero_food_donation.png" alt="Hero Interface" width="48%" />
-  <img src="./src/assets/serving_meal.png" alt="Platform Overview" width="48%" />
-</div>
-<br/>
-<div align="center">
-  <img src="./src/assets/community_volunteers.png" alt="Community Dashboard" width="80%" />
-</div>
 
 ## 🚀 Tech Stack
 
@@ -79,24 +68,28 @@ food-donation/
 ### Prerequisites
 
 Ensure you have the following installed on your local machine:
+
 - **Node.js** (LTS version recommended, v18.x+)
 - **npm** or **yarn**
 
 ### Quick Start
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/nirajkumardangi/food-donation.git
    cd food-donation
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Configure Environment Variables:**
    Create a `.env.local` file in the root directory and add your Firebase configuration variables. (Refer to your Firebase Console for details):
+
    ```env
    VITE_FIREBASE_API_KEY=your_api_key
    VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
@@ -108,6 +101,7 @@ Ensure you have the following installed on your local machine:
 
 4. **Start the development server:**
    Because the project uses Vite, simply run:
+
    ```bash
    npm run dev
    ```
@@ -141,5 +135,6 @@ This project is distributed under the MIT License. See the `LICENSE` file for mo
 ## 📫 Contact
 
 For technical questions, support, or collaboration opportunities, please reach out to the principal developers:
+
 - **Niraj Kumar Dangi**: niraj8825224435@gmail.com
 - **Raushan Kumar**: raushankumarsaw15@gmail.com
