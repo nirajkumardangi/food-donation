@@ -1,6 +1,6 @@
 /* This code snippet is setting up Firebase authentication in a React application. Here's a breakdown
 of what it does: */
-import fireBase, { db as fireStore } from "./firebaseSetUp";
+import fireBase from "./firebaseSetUp";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -40,6 +40,7 @@ const queryClient = new QueryClient({
 export default queryClient;
 const firebaseContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
+const fireStore = getFirestore(fireBase);
 const fireStorage = getStorage(fireBase);
 
 export const FirebaseProvider = (props) => {
