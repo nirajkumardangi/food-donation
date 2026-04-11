@@ -1,31 +1,42 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { useFirebase } from "../../../context/FirebaseContext";
-import Loader from "../../ui/Loader";
 import ErrorPage from "../../ui/Error";
 import Cards from "../../ui/Cards";
+import MealsSkeleton from "../../ui/MealsSkeleton";
 
 const DonationHistory = () => {
   const params = useParams();
   const navigate = useNavigate();
   const firebase = useFirebase();
 
-  const { data, isPending, isError, error } = useQuery({
-    queryKey: ["meals"],
-    queryFn: firebase.getMealsByUserId,
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["user_history_meals", firebase?.user?.uid],
+    queryFn: () => firebase.getMealsByUserId(),
+    enabled: !!firebase?.user,
   });
 
   let content = "";
 
-  if (isPending) {
-    content = <Loader />;
+  if (isLoading) {
+    content = (
+      <div className="container mx-auto mt-2">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[...Array(3)].map((_, i) => (
+            <li key={i} className="flex justify-center flex-grow">
+              <MealsSkeleton />
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
   }
   if (isError) {
     content = <ErrorPage title={error?.title || "Error"} message={error?.message || "Failed to load history"} />;
   }
 
   if (data) {
-    if (data.docs.length === 0) {
+    if (data.empty || data.docs.length === 0) {
       content = (
         <div className="flex flex-col items-center justify-center py-20 px-4 text-center">
           <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mb-6 border border-white/10 shadow-xl">

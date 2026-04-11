@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics, isSupported } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
 
-// Your web app's Firebase configuration using Env vars safely
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -12,8 +12,16 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-const fireBase = initializeApp(firebaseConfig);
-const analytics = getAnalytics(fireBase);
+const app = initializeApp(firebaseConfig);
 
-export { analytics };
-export default fireBase;
+const db = getFirestore(app);
+
+let analytics = null;
+isSupported().then((yes) => {
+  if (yes) {
+    analytics = getAnalytics(app);
+  }
+});
+
+export { db, analytics };
+export default app;

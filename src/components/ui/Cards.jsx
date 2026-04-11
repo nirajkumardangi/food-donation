@@ -1,7 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useFirebase } from "../../context/FirebaseContext";
-import Loader from "./Loader";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -49,9 +48,7 @@ const Cards = ({
     >
       <div className="relative h-64 w-full">
         {isPending ? (
-          <div className="absolute inset-0 flex items-center justify-center bg-dark-gray/50 animate-pulse">
-            <Loader />
-          </div>
+          <div className="absolute inset-0 bg-white/10 animate-pulse"></div>
         ) : (
           <img
             className="w-full h-full object-cover"

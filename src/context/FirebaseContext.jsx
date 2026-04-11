@@ -1,6 +1,6 @@
 /* This code snippet is setting up Firebase authentication in a React application. Here's a breakdown
 of what it does: */
-import fireBase from "./firebaseSetUp";
+import fireBase, { db as fireStore } from "./firebaseSetUp";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -30,11 +30,16 @@ import {
 } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 export default queryClient;
 const firebaseContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
-const fireStore = getFirestore(fireBase);
 const fireStorage = getStorage(fireBase);
 
 export const FirebaseProvider = (props) => {
@@ -56,7 +61,7 @@ export const FirebaseProvider = (props) => {
       const response = await createUserWithEmailAndPassword(
         firebaseAuth,
         data.email,
-        data.password
+        data.password,
       );
 
       return response;
@@ -73,7 +78,7 @@ export const FirebaseProvider = (props) => {
       const response = await signInWithEmailAndPassword(
         firebaseAuth,
         data.email,
-        data.password
+        data.password,
       );
 
       return response;
@@ -123,7 +128,7 @@ export const FirebaseProvider = (props) => {
 
       const ImageRef = ref(
         fireStorage,
-        `upload/images/${Date.now()}-${image.name}`
+        `upload/images/${Date.now()}-${image.name}`,
       );
       const mealsImage_path = await uploadBytes(ImageRef, image);
 
@@ -199,8 +204,6 @@ export const FirebaseProvider = (props) => {
   }
 
   async function deleteDocBYId(id) {
-
-    
     try {
       await deleteDoc(doc(fireStore, "Meals", id));
     } catch (error) {
